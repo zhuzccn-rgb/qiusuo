@@ -1,0 +1,351 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B100000000000000000001 /* LexiconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000001 /* LexiconApp.swift */; };
+		B100000000000000000002 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000002 /* AppState.swift */; };
+		B100000000000000000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000003 /* ContentView.swift */; };
+		B100000000000000000004 /* HomeworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000004 /* HomeworkView.swift */; };
+		B100000000000000000005 /* MistakesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000005 /* MistakesView.swift */; };
+		B100000000000000000006 /* RecordingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000006 /* RecordingsView.swift */; };
+		B100000000000000000007 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000007 /* InboxView.swift */; };
+		B100000000000000000008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000008 /* SettingsView.swift */; };
+		B100000000000000000011 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000013 /* StatusItemController.swift */; };
+		B100000000000000000012 /* MarkdownBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000014 /* MarkdownBlock.swift */; };
+		B100000000000000000013 /* SearchChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100000000000000000015 /* SearchChrome.swift */; };
+		B100000000000000000009 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C100000000000000000011 /* AppIcon.icns */; };
+		B100000000000000000014 /* tex-svg.js in Resources */ = {isa = PBXBuildFile; fileRef = C100000000000000000016 /* tex-svg.js */; };
+		B100000000000000000101 /* LexiconCore in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000001 /* LexiconCore */; };
+		B100000000000000000102 /* LexiconSpeech in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000002 /* LexiconSpeech */; };
+		B100000000000000000103 /* LexiconLLM in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000003 /* LexiconLLM */; };
+		B100000000000000000104 /* LexiconInbox in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000004 /* LexiconInbox */; };
+		B100000000000000000105 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C100000000000000000101 /* PDFKit.framework */; };
+		B100000000000000000106 /* LexiconCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000005 /* LexiconCalendar */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C100000000000000000000 /* 求索.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "求索.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C100000000000000000001 /* LexiconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconApp.swift; sourceTree = "<group>"; };
+		C100000000000000000002 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C100000000000000000003 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C100000000000000000004 /* HomeworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkView.swift; sourceTree = "<group>"; };
+		C100000000000000000005 /* MistakesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesView.swift; sourceTree = "<group>"; };
+		C100000000000000000006 /* RecordingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsView.swift; sourceTree = "<group>"; };
+		C100000000000000000007 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		C100000000000000000008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C100000000000000000013 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		C100000000000000000014 /* MarkdownBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownBlock.swift; sourceTree = "<group>"; };
+		C100000000000000000015 /* SearchChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChrome.swift; sourceTree = "<group>"; };
+		C100000000000000000009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C100000000000000000010 /* Lexicon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lexicon.entitlements; sourceTree = "<group>"; };
+		C100000000000000000011 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		C100000000000000000016 /* tex-svg.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tex-svg.js"; sourceTree = "<group>"; };
+		C100000000000000000101 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E100000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B100000000000000000101 /* LexiconCore in Frameworks */,
+				B100000000000000000102 /* LexiconSpeech in Frameworks */,
+				B100000000000000000103 /* LexiconLLM in Frameworks */,
+				B100000000000000000104 /* LexiconInbox in Frameworks */,
+				B100000000000000000106 /* LexiconCalendar in Frameworks */,
+				B100000000000000000105 /* PDFKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F100000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				F100000000000000000002 /* App */,
+				F100000000000000000004 /* Frameworks */,
+				F100000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F100000000000000000002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C100000000000000000001 /* LexiconApp.swift */,
+				C100000000000000000002 /* AppState.swift */,
+				C100000000000000000003 /* ContentView.swift */,
+				C100000000000000000004 /* HomeworkView.swift */,
+				C100000000000000000005 /* MistakesView.swift */,
+				C100000000000000000006 /* RecordingsView.swift */,
+				C100000000000000000007 /* InboxView.swift */,
+				C100000000000000000008 /* SettingsView.swift */,
+				C100000000000000000013 /* StatusItemController.swift */,
+				C100000000000000000014 /* MarkdownBlock.swift */,
+				C100000000000000000015 /* SearchChrome.swift */,
+				C100000000000000000009 /* Info.plist */,
+				C100000000000000000010 /* Lexicon.entitlements */,
+				C100000000000000000011 /* AppIcon.icns */,
+				C100000000000000000016 /* tex-svg.js */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F100000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C100000000000000000000 /* 求索.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F100000000000000000004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C100000000000000000101 /* PDFKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A600000000000000000001 /* 求索 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A700000000000000000002 /* Build configuration list for PBXNativeTarget "求索" */;
+			buildPhases = (
+				E200000000000000000001 /* Sources */,
+				E100000000000000000001 /* Frameworks */,
+				E300000000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "求索";
+			packageProductDependencies = (
+				D100000000000000000001 /* LexiconCore */,
+				D100000000000000000002 /* LexiconSpeech */,
+				D100000000000000000003 /* LexiconLLM */,
+				D100000000000000000004 /* LexiconInbox */,
+				D100000000000000000005 /* LexiconCalendar */,
+			);
+			productName = "求索";
+			productReference = C100000000000000000000 /* 求索.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A900000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = A700000000000000000001 /* Build configuration list for PBXProject "Lexicon" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				Base,
+			);
+			mainGroup = F100000000000000000001;
+			packageReferences = (
+				D100000000000000000000 /* XCLocalSwiftPackageReference "." */,
+			);
+			productRefGroup = F100000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A600000000000000000001 /* 求索 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E300000000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B100000000000000000009 /* AppIcon.icns in Resources */,
+				B100000000000000000014 /* tex-svg.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E200000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B100000000000000000001 /* LexiconApp.swift in Sources */,
+				B100000000000000000002 /* AppState.swift in Sources */,
+				B100000000000000000003 /* ContentView.swift in Sources */,
+				B100000000000000000004 /* HomeworkView.swift in Sources */,
+				B100000000000000000005 /* MistakesView.swift in Sources */,
+				B100000000000000000006 /* RecordingsView.swift in Sources */,
+				B100000000000000000007 /* InboxView.swift in Sources */,
+				B100000000000000000008 /* SettingsView.swift in Sources */,
+				B100000000000000000011 /* StatusItemController.swift in Sources */,
+				B100000000000000000012 /* MarkdownBlock.swift in Sources */,
+				B100000000000000000013 /* SearchChrome.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A800000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A800000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		A800000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = App/Lexicon.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.lexicon.archive;
+				PRODUCT_NAME = "求索";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A800000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = App/Lexicon.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.lexicon.archive;
+				PRODUCT_NAME = "求索";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A700000000000000000001 /* Build configuration list for PBXProject "Lexicon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A800000000000000000001 /* Debug */,
+				A800000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A700000000000000000002 /* Build configuration list for PBXNativeTarget "求索" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A800000000000000000003 /* Debug */,
+				A800000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D100000000000000000000 /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D100000000000000000001 /* LexiconCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D100000000000000000000 /* XCLocalSwiftPackageReference "." */;
+			productName = LexiconCore;
+		};
+		D100000000000000000002 /* LexiconSpeech */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D100000000000000000000 /* XCLocalSwiftPackageReference "." */;
+			productName = LexiconSpeech;
+		};
+		D100000000000000000003 /* LexiconLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D100000000000000000000 /* XCLocalSwiftPackageReference "." */;
+			productName = LexiconLLM;
+		};
+		D100000000000000000004 /* LexiconInbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D100000000000000000000 /* XCLocalSwiftPackageReference "." */;
+			productName = LexiconInbox;
+		};
+		D100000000000000000005 /* LexiconCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D100000000000000000000 /* XCLocalSwiftPackageReference "." */;
+			productName = LexiconCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A900000000000000000001 /* Project object */;
+}

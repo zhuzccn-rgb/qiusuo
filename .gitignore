@@ -1,0 +1,39 @@
+# Build and editor state
+.DS_Store
+.build/
+dist/
+DerivedData/
+.swiftpm/
+xcuserdata/
+*.xcuserstate
+.cursor/
+.codex/
+.specstory/
+.vscode/
+
+# Credentials, archives, recordings and personal course materials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.caf
+*.wav
+*.m4a
+*.mp3
+*.mp4
+*.mov
+*.zip
+*.pdf
+recordings/
+transcripts/
+private/
+
+# Python helper cache
+__pycache__/
+*.pyc

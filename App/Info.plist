@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>zh-Hans</string>
+	<key>CFBundleExecutable</key>
+	<string>求索</string>
+	<key>CFBundleIdentifier</key>
+	<string>app.lexicon.archive</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>求索</string>
+	<key>CFBundleDisplayName</key>
+	<string>求索</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>15.0</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.education</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>求索在你确认获得录音许可后使用麦克风，将音频保存到本机。</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>求索使用系统本机语音识别，把你有权处理的音频转成文字；首次可能下载语言资源。</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>求索读取日历里的课表，把课堂录音按时间归到对应课时。</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>求索读取日历里的课表，把课堂录音按时间归到对应课时。</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>求索读取你选择导入的学习材料与收件箱文件。</string>
+</dict>
+</plist>

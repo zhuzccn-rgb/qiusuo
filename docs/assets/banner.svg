@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">求索 · Qiusuo</title>
+  <desc id="desc">A native Mac study archive. Capture with permission. Understand with context. Keep what you learn.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f7f4ee"/><stop offset="1" stop-color="#eaeaf4"/></linearGradient>
+    <linearGradient id="ink" x2="1" y2="1"><stop stop-color="#514880"/><stop offset="1" stop-color="#273653"/></linearGradient>
+  </defs>
+  <rect width="1280" height="420" rx="26" fill="url(#bg)"/>
+  <circle cx="1110" cy="65" r="240" fill="#dfdcef" opacity=".65"/>
+  <circle cx="1190" cy="410" r="235" fill="#d5e0df" opacity=".7"/>
+  <rect x="64" y="62" width="64" height="64" rx="18" fill="url(#ink)"/>
+  <path d="M82 80h28v28H82zm0 14h28M96 80v28" fill="none" stroke="#f8f5ee" stroke-width="2"/>
+  <text x="149" y="105" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="18" letter-spacing="5" fill="#514880">A PLACE FOR WHAT YOU LEARN</text>
+  <text x="64" y="218" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="72" font-weight="650" fill="#26324b">求索 <tspan font-size="62" font-weight="400" fill="#514880">/ Qiusuo</tspan></text>
+  <text x="68" y="271" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="24" fill="#536076">Your lectures, notes, and next aha moment.</text>
+  <text x="68" y="314" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20" fill="#536076">让听过的课，成为真正学会的东西。</text>
+  <g transform="translate(858,143)">
+    <rect x="0" y="12" width="300" height="178" rx="16" fill="#fff" opacity=".82" stroke="#d0cfdf"/>
+    <rect x="20" y="32" width="60" height="138" rx="7" fill="#eeedf4"/>
+    <rect x="94" y="38" width="120" height="8" rx="4" fill="#615881"/>
+    <rect x="94" y="62" width="142" height="5" rx="2" fill="#c9c7d5"/>
+    <rect x="94" y="76" width="123" height="5" rx="2" fill="#c9c7d5"/>
+    <path d="M97 125h12l6-15 8 33 9-49 10 63 10-48 10 27 7-11h83" fill="none" stroke="#7e789f" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="272" cy="39" r="5" fill="#83a49a"/>
+  </g>
+  <text x="68" y="377" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" letter-spacing="2" fill="#717b8b">NATIVE SWIFT  ·  LOCAL ARCHIVE  ·  PERMISSION FIRST</text>
+</svg>
