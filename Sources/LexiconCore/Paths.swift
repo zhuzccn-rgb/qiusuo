@@ -68,7 +68,7 @@ public enum AppPaths: Sendable {
         let readme = root.appendingPathComponent("放到这里.txt")
         guard !FileManager.default.fileExists(atPath: readme.path) else { return }
         let text = """
-        求索收件箱 / Qiusuo Inbox
+        求索收件箱 / Askfor Inbox
         将你有权使用的材料放入对应文件夹，再在应用里手动导入。
         Place materials you are authorized to use in the matching folder, then import them in the app.
         作业 / Homework · 笔记 / Notes · 录音 / Recordings · 错题 / Mistakes · 课件 / Slides

@@ -1,4 +1,4 @@
-# Working on Qiusuo / 求索
+# Working on Askfor / 求索
 
 Native Swift 5.9, macOS 15+. Preserve the existing single-process, five-library architecture.
 

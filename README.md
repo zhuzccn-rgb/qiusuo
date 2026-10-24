@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/banner.svg" alt="求索 · Qiusuo — a place for what you learn" width="100%" />
+  <img src="docs/assets/banner.svg" alt="求索 · Askfor — a place for what you learn" width="100%" />
 </p>
 <p align="center">
   <a href="README.zh-CN.md">简体中文</a> · <strong>English</strong> · <a href="docs/RESPONSIBLE_USE.md">Responsible use</a> · <a href="docs/PRIVACY.md">Privacy</a>
@@ -15,12 +15,12 @@
 
 A lecture ends. The hard part is turning what you heard into something you can return to.
 
-**Qiusuo (求索)** is a native Mac study archive for authorized recordings, transcripts, homework, and mistakes worth revisiting. It brings those pieces together in a small Swift app: record or import, transcribe with Apple's on-device speech tools, organize by course, and optionally ask a model you configure to help make sense of the text.
+**Askfor (求索)** is a native Mac study archive for authorized recordings, transcripts, homework, and mistakes worth revisiting. It brings those pieces together in a small Swift app: record or import, transcribe with Apple's on-device speech tools, organize by course, and optionally ask a model you configure to help make sense of the text.
 
 Built from a personal learning workflow. Shared as an early, build-it-yourself source release.
 The current app interface is primarily Chinese; the project documentation is bilingual.
 
-> **Permission comes first.** A microphone permission dialog grants device access; it does not grant permission to record a class. Obtain the required authorization before recording, and separately check whether AI processing or sharing is allowed. Qiusuo has no university affiliation or compliance certification.
+> **Permission comes first.** A microphone permission dialog grants device access; it does not grant permission to record a class. Obtain the required authorization before recording, and separately check whether AI processing or sharing is allowed. Askfor has no university affiliation or compliance certification.
 
 ## What it does
 
@@ -41,7 +41,7 @@ The current app interface is primarily Chinese; the project documentation is bil
 
 ## Preview
 
-![Qiusuo synthetic study-note preview](docs/assets/app-preview.png)
+![Askfor synthetic study-note preview](docs/assets/app-preview.png)
 
 A real app screenshot with synthetic notes and a silent generated fixture. No classroom audio or student data is shown.
 
@@ -76,7 +76,7 @@ For iPad work, AirDrop the files to your Mac, then place the intended files in `
 
 ## Optional model connection
 
-Qiusuo does not bundle model weights or require a paid AI service. It speaks the OpenAI-compatible `/v1/models` and `/v1/chat/completions` protocols. Presets cover llama.cpp, LM Studio, Ollama, and agent gateways; server-specific compatibility can vary.
+Askfor does not bundle model weights or require a paid AI service. It speaks the OpenAI-compatible `/v1/models` and `/v1/chat/completions` protocols. Presets cover llama.cpp, LM Studio, Ollama, and agent gateways; server-specific compatibility can vary.
 
 | Setting | Example |
 | :--- | :--- |
@@ -128,7 +128,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and the [release
 
 ## License & acknowledgments
 
-Qiusuo's original code and documentation are available under the [MIT License](LICENSE).
+Askfor's original code and documentation are available under the [MIT License](LICENSE).
 The bundled MathJax 3.2.2 renderer keeps its [Apache 2.0 license](third_party/MathJax/LICENSE); see [third-party notices](THIRD_PARTY_NOTICES.md).
 
 **The software license covers the software.** It does not license recordings, voices, slides, transcripts, or other content you put into it. [Responsible use / 使用边界 →](docs/RESPONSIBLE_USE.md)

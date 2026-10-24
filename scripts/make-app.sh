@@ -29,7 +29,7 @@ ditto "$APP_SRC" "$APP"
 
 # Include third-party and original license notices in the local app bundle.
 mkdir -p "$APP/Contents/Resources/Licenses"
-cp "$ROOT/LICENSE" "$APP/Contents/Resources/Licenses/Qiusuo-MIT.txt"
+cp "$ROOT/LICENSE" "$APP/Contents/Resources/Licenses/Askfor-MIT.txt"
 cp "$ROOT/third_party/MathJax/LICENSE" "$APP/Contents/Resources/Licenses/MathJax-Apache-2.0.txt"
 cp "$ROOT/THIRD_PARTY_NOTICES.md" "$APP/Contents/Resources/Licenses/"
 

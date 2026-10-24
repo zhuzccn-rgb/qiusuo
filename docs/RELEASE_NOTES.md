@@ -2,7 +2,7 @@
 
 ## Scope / 范围
 
-A clean source snapshot of the personal Qiusuo/Lexicon app, prepared without the original Git history, editor state, agent conversations, archives, tokens, or real course media. The original working directory and its uncommitted changes were preserved.
+A clean source snapshot of the personal Askfor/Lexicon app, prepared without the original Git history, editor state, agent conversations, archives, tokens, or real course media. The original working directory and its uncommitted changes were preserved.
 
 这是个人求索/Lexicon 项目的独立源码快照，不包含旧 Git 历史、编辑器状态、开发聊天、档案库、密钥或真实课堂材料。原工作目录及其中未提交的修改保持原样。
 

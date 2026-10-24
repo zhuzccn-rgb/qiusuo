@@ -3,7 +3,7 @@
 ## MathJax 3.2.2
 
 `App/tex-svg.js` is the unmodified MathJax 3.2.2 TeX-to-SVG browser bundle.
-It is distributed under the Apache License 2.0, separately from Qiusuo's MIT license.
+It is distributed under the Apache License 2.0, separately from Askfor's MIT license.
 
 - Project: https://github.com/mathjax/MathJax/tree/3.2.2
 - License: [third_party/MathJax/LICENSE](third_party/MathJax/LICENSE)

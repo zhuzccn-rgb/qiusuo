@@ -1,6 +1,6 @@
 # Responsible use / 使用边界
 
-Qiusuo is a study tool. The MIT license grants rights to the software, not to any content captured or processed with it. The confirmations help users make deliberate choices; the app cannot verify permissions or certify that a use is lawful.
+Askfor is a study tool. The MIT license grants rights to the software, not to any content captured or processed with it. The confirmations help users make deliberate choices; the app cannot verify permissions or certify that a use is lawful.
 
 求索是一款学习工具。MIT 许可证授权的是软件，不是被录下或处理的内容。应用里的确认用于提醒和明确选择，不能核验授权，也不构成法律认证。
 

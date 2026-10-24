@@ -31,7 +31,7 @@ This describes the source release, not a promise about every fork, operating sys
 
 AI is optional. The app uses the endpoint entered in Settings, accepts HTTPS, and permits plain HTTP only on the explicit loopback hosts. Endpoint validation rejects embedded credentials, query strings, fragments, and malformed URLs. HTTP redirects are not followed. Requests do not include raw audio or local file paths in study prompts. The app does not read Hermes credential files or change another tool's model configuration.
 
-The receiving server sees your connection and request contents. It may log, retain, forward, or process them using tools; Qiusuo cannot control that server. A loopback gateway is not proof of offline operation. Configure authentication and provider retention yourself, and ensure you have permission for the chosen processing.
+The receiving server sees your connection and request contents. It may log, retain, forward, or process them using tools; Askfor cannot control that server. A loopback gateway is not proof of offline operation. Configure authentication and provider retention yourself, and ensure you have permission for the chosen processing.
 
 AI 为可选功能。客户端只使用设置里的目的地，学习提示词不附带原始音频或本机路径，也不会读取 Hermes 密钥文件或更改其他工具配置。接收服务可以记录、留存、转发或调用工具；求索无法控制服务端。本机网关不等于离线。
 

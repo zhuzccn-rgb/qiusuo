@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/banner.svg" alt="求索 · Qiusuo — 让听过的课，成为真正学会的东西" width="100%" />
+  <img src="docs/assets/banner.svg" alt="求索 · Askfor — 让听过的课，成为真正学会的东西" width="100%" />
 </p>
 <p align="center">
   <strong>简体中文</strong> · <a href="README.md">English</a> · <a href="docs/RESPONSIBLE_USE.md">使用边界</a> · <a href="docs/PRIVACY.md">隐私与数据流</a>
@@ -15,7 +15,7 @@
 
 一节课结束，留下来的可能是零散的笔记、一段录音，还有几个“当时好像懂了”的瞬间。
 
-**求索（Qiusuo）**是一个原生 Mac 学习档案，把你有权使用的录音、转写、作业和错题放到一起：录制或导入，用 Apple 的本机语音工具转写，按课程整理；需要时，再让你自己配置的模型帮你梳理文字。
+**求索（Askfor）**是一个原生 Mac 学习档案，把你有权使用的录音、转写、作业和错题放到一起：录制或导入，用 Apple 的本机语音工具转写，按课程整理；需要时，再让你自己配置的模型帮你梳理文字。
 
 它从个人学习工作流里长出来，现在以早期源码版本开源。应用界面目前以中文为主，项目文档提供中英双语。
 
@@ -40,7 +40,7 @@
 
 ## 界面预览
 
-![Qiusuo synthetic study-note preview](docs/assets/app-preview.png)
+![Askfor synthetic study-note preview](docs/assets/app-preview.png)
 
 真实应用截图，使用合成笔记和生成的静音夹具，不含真实课堂音频或学生资料。
 
