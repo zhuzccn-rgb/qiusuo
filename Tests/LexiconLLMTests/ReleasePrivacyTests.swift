@@ -127,7 +127,7 @@ final class ReleasePrivacyTests: XCTestCase {
         XCTAssertTrue(text.contains("model=local-model"))
         XCTAssertTrue(text.contains("max_tokens"))
         XCTAssertTrue(text.contains("messages"))
-        XCTAssertTrue(text.contains("不会自动附带原始音频、本机文件路径或课件。"))
+        XCTAssertTrue(text.contains("不会自动附带原始音频、本机文件路径或课件。") || text.contains("Original audio, local file paths and slides are not attached automatically."))
         XCTAssertFalse(text.contains("super-secret-key"))
         XCTAssertFalse(text.contains(transcript))
 

@@ -1,3 +1,4 @@
+import LexiconCore
 import AppKit
 import Foundation
 import PDFKit
@@ -138,11 +139,11 @@ public enum DocumentTextRecognizerError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .missingFile:
-            return "找不到这份文件。"
+            return L10n.text("找不到这份文件。")
         case .unsupportedType:
-            return "这类文件还不能识别文字。"
+            return L10n.text("这类文件还不能识别文字。")
         case .emptyResult:
-            return "没有识别到文字。"
+            return L10n.text("没有识别到文字。")
         }
     }
 }

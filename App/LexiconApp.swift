@@ -18,7 +18,7 @@ struct LexiconApp: App {
     private let statusItem = StatusItemController()
 
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(L10n.text("求索")) {
             ContentView()
                 .environmentObject(state)
                 .onAppear {
@@ -31,7 +31,7 @@ struct LexiconApp: App {
         .windowResizability(.automatic)
         .commands {
             CommandGroup(after: .newItem) {
-                Button("导入收件箱全部文件") {
+                Button(L10n.text("导入收件箱全部文件")) {
                     state.importAllInbox()
                 }
                 .keyboardShortcut("i", modifiers: [.command, .shift])

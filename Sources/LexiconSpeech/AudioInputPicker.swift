@@ -1,3 +1,4 @@
+import LexiconCore
 import CoreAudio
 import Foundation
 
@@ -53,7 +54,7 @@ public enum AudioInputPicker {
             guard hasInput(id) else { return nil }
             return AudioInputDevice(
                 id: id,
-                name: stringValue(id, kAudioObjectPropertyName) ?? "输入 \(id)",
+                name: stringValue(id, kAudioObjectPropertyName) ?? L10n.text("输入 \(id)"),
                 uid: stringValue(id, kAudioDevicePropertyDeviceUID) ?? "",
                 transport: transportType(id)
             )
@@ -80,7 +81,7 @@ public enum AudioInputPicker {
         return inputDevices().first(where: { $0.id == device })
             ?? AudioInputDevice(
                 id: device,
-                name: stringValue(device, kAudioObjectPropertyName) ?? "默认输入",
+                name: stringValue(device, kAudioObjectPropertyName) ?? L10n.text("默认输入"),
                 uid: stringValue(device, kAudioDevicePropertyDeviceUID) ?? "",
                 transport: transportType(device)
             )

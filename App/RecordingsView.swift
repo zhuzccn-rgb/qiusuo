@@ -11,7 +11,7 @@ struct RecordingsView: View {
     var body: some View {
         Group {
             if state.lectures.isEmpty {
-                PanePlaceholder(title: "还没有录音", systemImage: "mic.square")
+                PanePlaceholder(title: L10n.text("还没有录音"), systemImage: "mic.square")
             } else {
                 VStack(spacing: 0) {
                     lectureFilters
@@ -19,9 +19,9 @@ struct RecordingsView: View {
                     if filtered.isEmpty {
                         if ArchiveSearch.query(state.searchText).isEmpty {
                             ContentUnavailableView(
-                                "没有符合条件的录音",
+                                L10n.text("没有符合条件的录音"),
                                 systemImage: "line.3.horizontal.decrease.circle",
-                                description: Text("调整日期区间或课程名称。")
+                                description: Text(L10n.text("调整日期区间或课程名称。"))
                             )
                         } else {
                             ContentUnavailableView.search(text: state.searchText)
@@ -63,7 +63,7 @@ struct RecordingsView: View {
     private var recordingBar: some View {
         VStack(spacing: 6) {
             if state.recorder.isRecording {
-                Button("停止并保存", role: .destructive) {
+                Button(L10n.text("停止并保存"), role: .destructive) {
                     state.stopRecordingAndSave()
                 }
                 .buttonStyle(.borderedProminent)
@@ -84,7 +84,7 @@ struct RecordingsView: View {
                 Button {
                     Task { await state.startRecording() }
                 } label: {
-                    Label("开始录音", systemImage: "record.circle.fill")
+                    Label(L10n.text("开始录音"), systemImage: "record.circle.fill")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
@@ -98,28 +98,28 @@ struct RecordingsView: View {
 
     private var recordingStatusLine: String {
         let written = timeString(state.recorder.capturedSeconds)
-        let device = state.recorder.inputDeviceName.isEmpty ? "麦克风" : state.recorder.inputDeviceName
+        let device = state.recorder.inputDeviceName.isEmpty ? L10n.text("麦克风") : state.recorder.inputDeviceName
         if state.recorder.isStalled {
-            return "写入已停止 · \(written) · \(device)"
+            return L10n.text("写入已停止 · \(written) · \(device)")
         }
-        return "已写入 \(written) · \(device)"
+        return L10n.text("已写入 \(written) · \(device)")
     }
 
     private var lectureFilters: some View {
         VStack(alignment: .leading, spacing: 6) {
-            DatePicker("从", selection: rangeStart, displayedComponents: .date)
-                .help("录音日期的起始日，含当天")
-            DatePicker("到", selection: rangeEnd, displayedComponents: .date)
-                .help("录音日期的结束日，含当天")
+            DatePicker(L10n.text("从"), selection: rangeStart, displayedComponents: .date)
+                .help(L10n.text("录音日期的起始日，含当天"))
+            DatePicker(L10n.text("到"), selection: rangeEnd, displayedComponents: .date)
+                .help(L10n.text("录音日期的结束日，含当天"))
             HStack(spacing: 8) {
-                Picker("课程", selection: courseSelection) {
-                    Text("全部课程").tag("")
+                Picker(L10n.text("课程"), selection: courseSelection) {
+                    Text(L10n.text("全部课程")).tag("")
                     ForEach(courseOptions, id: \.self) { name in
                         Text(name).tag(name)
                     }
                 }
                 .pickerStyle(.menu)
-                Button("重置") {
+                Button(L10n.text("重置")) {
                     state.lectureBrowse = LectureBrowseFilter()
                 }
                 .disabled(!state.lectureBrowse.isActive)
@@ -197,7 +197,7 @@ struct RecordingsView: View {
             HStack(spacing: 8) {
                 Text(Self.dayClock.string(from: item.createdAt))
                 if item.subject.localizedCaseInsensitiveCompare(title) != .orderedSame {
-                    Text(item.subject)
+                    Text(L10n.subject(item.subject))
                 }
                 Text(timeString(item.duration))
                 if state.transcribingLectureID == item.id {
@@ -207,11 +207,11 @@ struct RecordingsView: View {
                 if item.hasTranscript { Image(systemName: "text.alignleft") }
                 if item.hasSummary { Image(systemName: "sparkles") }
                 if item.duration < 0.4 {
-                    Label("文件无效", systemImage: "xmark.circle.fill")
+                    Label(L10n.text("文件无效"), systemImage: "xmark.circle.fill")
                         .foregroundStyle(.red)
                         .labelStyle(.titleAndIcon)
                 } else if state.missingLectureFiles.contains(item.id) {
-                    Label("找不到文件", systemImage: "questionmark.folder")
+                    Label(L10n.text("找不到文件"), systemImage: "questionmark.folder")
                         .foregroundStyle(.red)
                         .labelStyle(.titleAndIcon)
                 }
@@ -227,8 +227,8 @@ struct RecordingsView: View {
             }
         }
         .contextMenu {
-            Button("导出") { state.exportLecture(item) }
-            Button("删除", role: .destructive) { state.delete(item) }
+            Button(L10n.text("导出")) { state.exportLecture(item) }
+            Button(L10n.text("删除"), role: .destructive) { state.delete(item) }
         }
         .tag(item.id)
     }
@@ -239,7 +239,7 @@ struct RecordingsView: View {
         if let name = item.fileURL?.deletingPathExtension().lastPathComponent, !name.isEmpty {
             return name
         }
-        return "未命名"
+        return L10n.text("未命名")
     }
 
     private static let dayClock: DateFormatter = {
@@ -271,7 +271,7 @@ struct LectureDetailPane: View {
             LectureDetail(item: item)
                 .id(item.id)
         } else {
-            PanePlaceholder(title: "选择一条录音", systemImage: "mic.square")
+            PanePlaceholder(title: L10n.text("选择一条录音"), systemImage: "mic.square")
         }
     }
 }
@@ -287,68 +287,68 @@ struct LectureDetail: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            TextField("课名", text: $item.title)
+            TextField(L10n.text("课名"), text: $item.title)
                 .font(.title2)
                 .textFieldStyle(.plain)
             HStack {
-                Picker("科目", selection: $item.subject) {
-                    ForEach(SubjectPreset.allCases) { Text($0.rawValue).tag($0.rawValue) }
+                Picker(L10n.text("科目"), selection: $item.subject) {
+                    ForEach(SubjectPreset.allCases) { Text(L10n.lookup($0.rawValue)).tag($0.rawValue) }
                 }
                 .frame(maxWidth: 180)
                 Spacer()
-                Button("保存") { state.save(item) }
+                Button(L10n.text("保存")) { state.save(item) }
                     .keyboardShortcut("s", modifiers: .command)
             }
             if item.duration < 0.4 {
-                Label("这份录音没有可用音频，无法转写。需要重新录一次。", systemImage: "exclamationmark.triangle.fill")
+                Label(L10n.text("这份录音没有可用音频，无法转写。需要重新录一次。"), systemImage: "exclamationmark.triangle.fill")
                     .font(.callout)
                     .foregroundStyle(.orange)
                     .padding(10)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
             } else if fileMissing {
-                Label("找不到录音文件。", systemImage: "questionmark.folder")
+                Label(L10n.text("找不到录音文件。"), systemImage: "questionmark.folder")
                     .font(.callout)
                     .foregroundStyle(.orange)
                     .padding(10)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
             }
-            TextField("标签，逗号分隔", text: $item.tags)
+            TextField(L10n.text("标签，逗号分隔"), text: $item.tags)
                 .textFieldStyle(.roundedBorder)
             HStack(spacing: 10) {
-                Button("开始转写") {
+                Button(L10n.text("开始转写")) {
                     Task { await state.transcribe(item) }
                 }
                 .disabled(state.busy || state.speech.isTranscribing || state.recorder.isRecording || item.duration < 0.4 || fileMissing)
                 .lectureGlass()
-                Button("提炼要点") {
+                Button(L10n.text("提炼要点")) {
                     Task { await state.summarizeLecture(item) }
                 }
                 .disabled(state.busy || !item.hasTranscript)
                 .lectureGlass()
-                Button("导出") {
+                Button(L10n.text("导出")) {
                     state.exportLecture(item)
                 }
                 .disabled(state.busy)
                 .lectureGlass()
                 if state.transcribingLectureID == item.id {
-                    Button("停止转写", role: .destructive) {
+                    Button(L10n.text("停止转写"), role: .destructive) {
                         state.cancelTranscription()
                     }
                     .lectureGlass()
                 }
                 if OnDeviceLectureTags.isAvailable {
-                    Button("本机标签") {
+                    Button(L10n.text("本机标签")) {
                         Task { await state.suggestOnDeviceTags(item) }
                     }
                     .disabled(state.busy || !item.hasTranscript)
-                    .help("只用稿子开头生成本机短标签，不改已经写好的要点")
+                    .help(L10n.text("只用稿子开头生成本机短标签，不改已经写好的要点"))
                     .lectureGlass()
                 }
                 Spacer(minLength: 16)
                 if pane == .transcript, !item.transcript.isEmpty {
-                    Button("复制") {
+                    Button(L10n.text("复制")) {
                         NSPasteboard.general.clearContents()
                         NSPasteboard.general.setString(item.transcript, forType: .string)
                     }
@@ -414,10 +414,10 @@ private struct LectureBottomTabs: NSViewRepresentable {
         tabs.tabViewType = .bottomTabsBezelBorder
         tabs.delegate = context.coordinator
         let transcriptItem = NSTabViewItem(identifier: LecturePane.transcript.rawValue)
-        transcriptItem.label = LecturePane.transcript.rawValue
+        transcriptItem.label = L10n.lookup(LecturePane.transcript.rawValue)
         transcriptItem.view = context.coordinator.transcriptHost
         let summaryItem = NSTabViewItem(identifier: LecturePane.summary.rawValue)
-        summaryItem.label = LecturePane.summary.rawValue
+        summaryItem.label = L10n.lookup(LecturePane.summary.rawValue)
         summaryItem.view = context.coordinator.summaryHost
         tabs.addTabViewItem(transcriptItem)
         tabs.addTabViewItem(summaryItem)
@@ -517,7 +517,7 @@ private struct LectureTabSummary: View {
         ScrollView {
             Group {
                 if model.text.isEmpty {
-                    Text("尚未生成要点")
+                    Text(L10n.text("尚未生成要点"))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
@@ -536,7 +536,7 @@ struct LectureTranscriptView: View, Equatable {
 
     var body: some View {
         if text.isEmpty {
-            Text("尚未转写")
+            Text(L10n.text("尚未转写"))
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
         } else if SummaryHTML.containsMath(text) {

@@ -38,8 +38,8 @@ final class InboxTests: XCTestCase {
         XCTAssertTrue(InboxWatcher.isArchive(root.appendingPathComponent("a.zip")))
         XCTAssertEqual(InboxWatcher.kind(for: root.appendingPathComponent("random.bin"), inboxRoot: root), .other)
         XCTAssertEqual(InboxWatcher.inboxFolder(for: root.appendingPathComponent("课件/CS61 A/lec.pdf"), inboxRoot: root), "课件")
-        XCTAssertEqual(InboxItem(url: root.appendingPathComponent("课件/CS61A/lec.pdf"), kind: .slides, modified: Date()).kindLabel, "课件")
-        XCTAssertEqual(InboxItem(url: root.appendingPathComponent("每周导入/w.zip"), kind: .archive, modified: Date()).kindLabel, "待分类")
+        XCTAssertEqual(InboxItem(url: root.appendingPathComponent("课件/CS61A/lec.pdf"), kind: .slides, modified: Date()).kindLabel, L10n.text("课件"))
+        XCTAssertEqual(InboxItem(url: root.appendingPathComponent("每周导入/w.zip"), kind: .archive, modified: Date()).kindLabel, L10n.text("待分类"))
     }
 
     func testScanSkipsReadmeICloudZeroByteAndHidden() throws {
@@ -78,7 +78,7 @@ final class InboxTests: XCTestCase {
         XCTAssertTrue(item.matchesSearch("录音"))
         XCTAssertTrue(item.matchesSearch("audio"))
         XCTAssertFalse(item.matchesSearch("错题"))
-        XCTAssertEqual(item.kindLabel, "录音")
+        XCTAssertEqual(item.kindLabel, L10n.text("录音"))
     }
 
     func testEnsureInboxLayoutCreatesFolders() throws {

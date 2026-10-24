@@ -26,13 +26,13 @@ public struct InboxItem: Identifiable, Hashable, Sendable {
 
     public var kindLabel: String {
         switch kind {
-        case .homework: return "作业"
-        case .note: return "笔记"
-        case .audio: return "录音"
-        case .mistakePhoto: return "错题"
-        case .slides: return "课件"
-        case .archive: return "待分类"
-        case .other: return "其他"
+        case .homework: return L10n.text("作业")
+        case .note: return L10n.text("笔记")
+        case .audio: return L10n.text("录音")
+        case .mistakePhoto: return L10n.text("错题")
+        case .slides: return L10n.text("课件")
+        case .archive: return L10n.text("待分类")
+        case .other: return L10n.text("其他")
         }
     }
 

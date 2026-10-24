@@ -26,6 +26,8 @@
 		B100000000000000000104 /* LexiconInbox in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000004 /* LexiconInbox */; };
 		B100000000000000000105 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C100000000000000000101 /* PDFKit.framework */; };
 		B100000000000000000106 /* LexiconCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D100000000000000000005 /* LexiconCalendar */; };
+		B100000000000000000025 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C100000000000000000025; };
+		B100000000000000000026 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C100000000000000000026; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		C100000000000000000011 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		C100000000000000000016 /* tex-svg.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tex-svg.js"; sourceTree = "<group>"; };
 		C100000000000000000101 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		C100000000000000000025 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Resources/en.lproj"; sourceTree = "<group>"; };
+		C100000000000000000026 /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,8 @@
 				C100000000000000000010 /* Lexicon.entitlements */,
 				C100000000000000000011 /* AppIcon.icns */,
 				C100000000000000000016 /* tex-svg.js */,
+				C100000000000000000026 /* zh-Hans.lproj */,
+				C100000000000000000025 /* en.lproj */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -151,7 +157,7 @@
 			};
 			buildConfigurationList = A700000000000000000001 /* Build configuration list for PBXProject "Lexicon" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = "zh-Hans";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -178,6 +184,8 @@
 			files = (
 				B100000000000000000009 /* AppIcon.icns in Resources */,
 				B100000000000000000014 /* tex-svg.js in Resources */,
+				B100000000000000000026 /* zh-Hans.lproj in Resources */,
+				B100000000000000000025 /* en.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

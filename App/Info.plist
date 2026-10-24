@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>zh-Hans</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>求索</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,10 @@
 	<string>求索读取日历里的课表，把课堂录音按时间归到对应课时。</string>
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>求索读取你选择导入的学习材料与收件箱文件。</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh-Hans</string>
+	</array>
 </dict>
 </plist>

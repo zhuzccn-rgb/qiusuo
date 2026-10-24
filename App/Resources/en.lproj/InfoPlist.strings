@@ -1,0 +1,7 @@
+"CFBundleName" = "Askfor";
+"CFBundleDisplayName" = "Askfor";
+"NSMicrophoneUsageDescription" = "Askfor uses the microphone only after you confirm recording permission, and saves the audio on this Mac.";
+"NSSpeechRecognitionUsageDescription" = "Askfor uses on-device speech recognition for audio you may process. Language assets may download on first use.";
+"NSCalendarsUsageDescription" = "Askfor reads class schedules to match recordings to classes by time.";
+"NSCalendarsFullAccessUsageDescription" = "Askfor reads class schedules to match recordings to classes by time.";
+"NSDownloadsFolderUsageDescription" = "Askfor reads the study materials and inbox files you select.";

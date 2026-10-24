@@ -11,7 +11,7 @@ struct InboxView: View {
     var body: some View {
         Group {
             if state.inbox.isEmpty {
-                PanePlaceholder(title: "收件箱是空的", systemImage: "tray")
+                PanePlaceholder(title: L10n.text("收件箱是空的"), systemImage: "tray")
             } else if filtered.isEmpty {
                 ContentUnavailableView.search(text: state.searchText)
             } else {
@@ -26,7 +26,7 @@ struct InboxView: View {
                             .lineLimit(1)
                     }
                     .contextMenu {
-                        Button("用访达显示") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
+                        Button(L10n.text("用访达显示")) { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
                     }
                 }
                 .listStyle(.inset)
@@ -64,7 +64,7 @@ struct InboxDetailPane: View {
             }
             .id(item.id)
         } else {
-            PanePlaceholder(title: "选择一个文件", systemImage: "tray")
+            PanePlaceholder(title: L10n.text("选择一个文件"), systemImage: "tray")
         }
     }
 
@@ -93,23 +93,23 @@ struct InboxDetailPane: View {
 
     @ViewBuilder
     private func actions(_ item: InboxItem) -> some View {
-        Button("用访达显示") {
+        Button(L10n.text("用访达显示")) {
             NSWorkspace.shared.activateFileViewerSelecting([item.url])
         }
         switch item.kind {
         case .slides:
-            Text("课件留在收件箱，不会自动发给模型")
+            Text(L10n.text("课件留在收件箱，不会自动发给模型"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
         case .archive:
-            Text("压缩包留在这里，需要时再手动处理")
+            Text(L10n.text("压缩包留在这里，需要时再手动处理"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
         case .audio:
-            Button("导入录音") { state.importInboxItem(item) }
+            Button(L10n.text("导入录音")) { state.importInboxItem(item) }
                 .buttonStyle(.borderedProminent)
         default:
-            Button("导入") { state.importInboxItem(item) }
+            Button(L10n.text("导入")) { state.importInboxItem(item) }
                 .buttonStyle(.borderedProminent)
         }
     }
@@ -120,21 +120,21 @@ struct InboxDetailPane: View {
                 .font(.system(size: 40, weight: .ultraLight))
                 .foregroundStyle(.tertiary)
                 .symbolRenderingMode(.hierarchical)
-            Text("收件箱是空的")
+            Text(L10n.text("收件箱是空的"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(.secondary)
-            Text("把选好的材料放进设置里的收件箱，或点「导入录音」自己选文件。求索不会自动搬走「下载」或 AirDrop 里的文件。")
+            Text(L10n.text("把选好的材料放进设置里的收件箱，或点「导入录音」自己选文件。求索不会自动搬走「下载」或 AirDrop 里的文件。"))
                 .font(.callout)
                 .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: 420)
-            Button("导入录音…") {
+            Button(L10n.text("导入录音…")) {
                 state.chooseAudioToImport()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("收件箱是空的。把材料放进收件箱，或手动导入录音")
+        .accessibilityLabel(L10n.text("收件箱是空的。把材料放进收件箱，或手动导入录音"))
     }
 }
 

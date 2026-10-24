@@ -11,14 +11,14 @@ struct MistakesView: View {
     var body: some View {
         Group {
             if state.mistakes.isEmpty {
-                PanePlaceholder(title: "还没有错题", systemImage: "xmark.seal")
+                PanePlaceholder(title: L10n.text("还没有错题"), systemImage: "xmark.seal")
             } else if filtered.isEmpty {
                 ContentUnavailableView.search(text: state.searchText)
             } else {
                 List(filtered, id: \.id, selection: $state.selectedMistakeID) { item in
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Text(item.subject)
+                            Text(L10n.subject(item.subject))
                                 .font(.caption2)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
@@ -31,7 +31,7 @@ struct MistakesView: View {
                         Text(item.question).lineLimit(2)
                     }
                     .contextMenu {
-                        Button("删除", role: .destructive) { state.delete(item) }
+                        Button(L10n.text("删除"), role: .destructive) { state.delete(item) }
                     }
                 }
                 .listStyle(.inset)
@@ -55,7 +55,7 @@ struct MistakeDetailPane: View {
             MistakeDetail(item: item)
                 .id(item.id)
         } else {
-            PanePlaceholder(title: "选择一道错题", systemImage: "xmark.seal")
+            PanePlaceholder(title: L10n.text("选择一道错题"), systemImage: "xmark.seal")
         }
     }
 }
@@ -68,18 +68,18 @@ struct MistakeDetail: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
-                    Picker("科目", selection: $item.subject) {
-                        ForEach(SubjectPreset.allCases) { Text($0.rawValue).tag($0.rawValue) }
+                    Picker(L10n.text("科目"), selection: $item.subject) {
+                        ForEach(SubjectPreset.allCases) { Text(L10n.lookup($0.rawValue)).tag($0.rawValue) }
                     }
                     .frame(maxWidth: 180)
                     Spacer()
-                    Button("保存") { state.save(item) }
+                    Button(L10n.text("保存")) { state.save(item) }
                         .keyboardShortcut("s", modifiers: .command)
-                    Button("总结") {
+                    Button(L10n.text("总结")) {
                         Task { await state.summarizeMistake(item) }
                     }
                     .disabled(state.busy)
-                    Button("识别文字") {
+                    Button(L10n.text("识别文字")) {
                         Task { await state.recognizeMistakeText(item) }
                     }
                     .disabled(
@@ -89,14 +89,14 @@ struct MistakeDetail: View {
                     )
                     .help(
                         DocumentTextRecognizer.shouldFillEmptyNotes(item.analysis)
-                            ? "识别写入空分析，已有手写不覆盖"
-                            : "已有分析，不会覆盖"
+                            ? L10n.text("识别写入空分析，已有手写不覆盖")
+                            : L10n.text("已有分析，不会覆盖")
                     )
                 }
-                labeled("题干") { TextEditor(text: $item.question).frame(minHeight: 80).scrollContentBackground(.hidden) }
-                labeled("我的错解") { TextEditor(text: $item.wrongAnswer).frame(minHeight: 60).scrollContentBackground(.hidden) }
-                labeled("正确答案") { TextEditor(text: $item.correctAnswer).frame(minHeight: 60).scrollContentBackground(.hidden) }
-                labeled("标签") { TextField("函数, 极值", text: $item.tags) }
+                labeled(L10n.text("题干")) { TextEditor(text: $item.question).frame(minHeight: 80).scrollContentBackground(.hidden) }
+                labeled(L10n.text("我的错解")) { TextEditor(text: $item.wrongAnswer).frame(minHeight: 60).scrollContentBackground(.hidden) }
+                labeled(L10n.text("正确答案")) { TextEditor(text: $item.correctAnswer).frame(minHeight: 60).scrollContentBackground(.hidden) }
+                labeled(L10n.text("标签")) { TextField(L10n.text("函数, 极值"), text: $item.tags) }
                 if let url = item.imageURL, FileManager.default.fileExists(atPath: url.path),
                    let image = NSImage(contentsOf: url) {
                     Image(nsImage: image)
@@ -105,8 +105,8 @@ struct MistakeDetail: View {
                         .frame(maxWidth: .infinity, maxHeight: 280)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                labeled("模型分析") {
-                    Text(item.analysis.isEmpty ? "尚未生成分析" : item.analysis)
+                labeled(L10n.text("模型分析")) {
+                    Text(item.analysis.isEmpty ? L10n.text("尚未生成分析") : item.analysis)
                         .textSelection(.enabled)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }

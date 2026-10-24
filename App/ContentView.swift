@@ -38,31 +38,31 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Button {
-                        let item = Homework(title: "新作业")
+                        let item = Homework(title: L10n.text("新作业"))
                         state.save(item)
                         state.selectedHomeworkID = item.id
                     } label: {
-                        Label("新建作业", systemImage: "plus")
+                        Label(L10n.text("新建作业"), systemImage: "plus")
                     }
-                    .help("新建作业")
+                    .help(L10n.text("新建作业"))
                 }
                 .hidden(state.selected != .homework)
                 ToolbarItem(placement: .principal) {
                     Button {
-                        let item = Mistake(question: "新错题")
+                        let item = Mistake(question: L10n.text("新错题"))
                         state.save(item)
                         state.selectedMistakeID = item.id
                     } label: {
-                        Label("新建错题", systemImage: "plus")
+                        Label(L10n.text("新建错题"), systemImage: "plus")
                     }
-                    .help("新建错题")
+                    .help(L10n.text("新建错题"))
                 }
                 .hidden(state.selected != .mistakes)
                 ToolbarItem(placement: .principal) {
                     Button {
                         state.exportLectures(state.filteredLectures)
                     } label: {
-                        Label("导出列表", systemImage: "square.and.arrow.up")
+                        Label(L10n.text("导出列表"), systemImage: "square.and.arrow.up")
                     }
                     .disabled(state.filteredLectures.isEmpty)
                     .help(lectureExportHelp)
@@ -72,19 +72,19 @@ struct ContentView: View {
                     Button {
                         Task { await state.reclassifyLecturesFromCalendar() }
                     } label: {
-                        Label("按日历重新归类", systemImage: "calendar.badge.clock")
+                        Label(L10n.text("按日历重新归类"), systemImage: "calendar.badge.clock")
                     }
                     .disabled(state.busy || state.lectures.isEmpty)
-                    .help("用 Mac 日历课表按时间匹配课名")
+                    .help(L10n.text("用 Mac 日历课表按时间匹配课名"))
                 }
                 .hidden(state.selected != .lectures)
                 ToolbarItem(placement: .principal) {
                     Button {
                         state.chooseAudioToImport()
                     } label: {
-                        Label("导入录音", systemImage: "mic.badge.plus")
+                        Label(L10n.text("导入录音"), systemImage: "mic.badge.plus")
                     }
-                    .help("自己选择一个音频文件导入。不会自动搬走「下载」或 AirDrop 里的文件")
+                    .help(L10n.text("自己选择一个音频文件导入。不会自动搬走「下载」或 AirDrop 里的文件"))
                     .keyboardShortcut("o", modifiers: [.command, .shift])
                 }
                 .hidden(state.selected != .inbox)
@@ -92,7 +92,7 @@ struct ContentView: View {
                     Button {
                         state.refreshInbox()
                     } label: {
-                        Label("刷新收件箱", systemImage: "arrow.triangle.2.circlepath")
+                        Label(L10n.text("刷新收件箱"), systemImage: "arrow.triangle.2.circlepath")
                     }
                 }
                 .hidden(state.selected != .inbox)
@@ -100,16 +100,16 @@ struct ContentView: View {
                     Button {
                         state.importAllInbox()
                     } label: {
-                        Label("全部导入", systemImage: "tray.and.arrow.down")
+                        Label(L10n.text("全部导入"), systemImage: "tray.and.arrow.down")
                     }
                     .keyboardShortcut("i", modifiers: [.command, .shift])
                     .disabled(state.inbox.isEmpty)
                 }
                 .hidden(state.selected != .inbox)
                 ToolbarItem(placement: .principal) {
-                    Picker("模型", selection: $state.settings.llmModel) {
+                    Picker(L10n.text("模型"), selection: $state.settings.llmModel) {
                         if !state.availableModels.contains(state.settings.llmModel) {
-                            Text(state.settings.llmModel.isEmpty ? "未选择模型" : LLMModelChoice.toolbarLabel(state.settings.llmModel))
+                            Text(state.settings.llmModel.isEmpty ? L10n.text("未选择模型") : LLMModelChoice.toolbarLabel(state.settings.llmModel))
                                 .tag(state.settings.llmModel)
                         }
                         ForEach(state.availableModels, id: \.self) { id in
@@ -118,15 +118,15 @@ struct ContentView: View {
                     }
                     .pickerStyle(.menu)
                     .frame(minWidth: 140, maxWidth: 240)
-                    .help(state.settings.llmModel.isEmpty ? "当前推理模型" : state.settings.llmModel)
+                    .help(state.settings.llmModel.isEmpty ? L10n.text("当前推理模型") : state.settings.llmModel)
                 }
                 ToolbarItem(placement: .principal) {
                     Button {
                         Task { await state.refreshModels() }
                     } label: {
-                        Label("刷新模型", systemImage: "arrow.clockwise")
+                        Label(L10n.text("刷新模型"), systemImage: "arrow.clockwise")
                     }
-                    .help(state.modelsMessage.isEmpty ? "刷新模型列表" : state.modelsMessage)
+                    .help(state.modelsMessage.isEmpty ? L10n.text("刷新模型列表") : state.modelsMessage)
                 }
                 if #available(macOS 26.0, *) {
                     DefaultToolbarItem(kind: .search, placement: .automatic)
@@ -139,7 +139,7 @@ struct ContentView: View {
         List(SidebarItem.allCases, selection: $state.selected) { item in
             Label {
                 HStack(spacing: 6) {
-                    Text(item.rawValue)
+                    Text(L10n.lookup(item.rawValue))
                     if item == .lectures, state.recorder.isRecording {
                         Circle()
                             .fill(state.recorder.isStalled ? Color.orange : Color.red)
@@ -152,7 +152,7 @@ struct ContentView: View {
             .tag(item)
         }
         .listStyle(.sidebar)
-        .navigationTitle("求索")
+        .navigationTitle(L10n.text("求索"))
         .navigationSplitViewColumnWidth(min: 160, ideal: 180, max: 220)
     }
 
@@ -181,27 +181,27 @@ struct ContentView: View {
             case .settings: SettingsPane(section: settingsSection)
             }
         }
-        .navigationTitle(state.selected.rawValue)
+        .navigationTitle(L10n.lookup(state.selected.rawValue))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private var lectureExportHelp: String {
         if !ArchiveSearch.query(state.searchText).isEmpty {
-            return "导出搜索到的 \(state.filteredLectures.count) 条（可按标签搜）"
+            return L10n.text("导出搜索到的 \(state.filteredLectures.count) 条（可按标签搜）")
         }
         if state.lectureBrowse.isActive {
-            return "导出当前日期和课程下的 \(state.filteredLectures.count) 条"
+            return L10n.text("导出当前日期和课程下的 \(state.filteredLectures.count) 条")
         }
-        return "导出当前全部课堂笔记"
+        return L10n.text("导出当前全部课堂笔记")
     }
 
     private var searchPrompt: String {
         switch state.selected {
-        case .homework: return "搜索作业"
-        case .mistakes: return "搜索错题"
-        case .lectures: return "搜索录音"
-        case .inbox: return "搜索收件箱"
-        case .settings: return "搜索"
+        case .homework: return L10n.text("搜索作业")
+        case .mistakes: return L10n.text("搜索错题")
+        case .lectures: return L10n.text("搜索录音")
+        case .inbox: return L10n.text("搜索收件箱")
+        case .settings: return L10n.text("搜索")
         }
     }
 
@@ -258,7 +258,7 @@ struct ContentView: View {
             return "\(title) · \(state.speech.progressText)"
         }
         let msg = state.statusMessage.trimmingCharacters(in: .whitespacesAndNewlines)
-        if msg == "录音中" || msg.hasPrefix("录音中 ·") { return "" }
+        if msg == L10n.text("录音中") || msg.hasPrefix(L10n.text("录音中 ·")) { return "" }
         return msg
     }
 

@@ -12,20 +12,20 @@ struct HomeworkView: View {
     var body: some View {
         Group {
             if state.homework.isEmpty {
-                PanePlaceholder(title: "还没有作业", systemImage: "doc.richtext")
+                PanePlaceholder(title: L10n.text("还没有作业"), systemImage: "doc.richtext")
             } else if filtered.isEmpty {
                 ContentUnavailableView.search(text: state.searchText)
             } else {
                 List(filtered, id: \.id, selection: $state.selectedHomeworkID) { item in
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.title).lineLimit(1)
-                        Text("\(item.subject) · \(item.createdAt.formatted(date: .abbreviated, time: .omitted))")
+                        Text("\(L10n.subject(item.subject)) · \(item.createdAt.formatted(date: .abbreviated, time: .omitted))")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }
                     .contextMenu {
-                        Button("删除", role: .destructive) { state.delete(item) }
+                        Button(L10n.text("删除"), role: .destructive) { state.delete(item) }
                     }
                 }
                 .listStyle(.inset)
@@ -49,7 +49,7 @@ struct HomeworkDetailPane: View {
             HomeworkDetail(item: item)
                 .id(item.id)
         } else {
-            PanePlaceholder(title: "选择一份作业", systemImage: "doc.richtext")
+            PanePlaceholder(title: L10n.text("选择一份作业"), systemImage: "doc.richtext")
         }
     }
 }
@@ -62,26 +62,26 @@ struct HomeworkDetail: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                TextField("标题", text: $item.title)
+                TextField(L10n.text("标题"), text: $item.title)
                     .font(.title2)
                     .textFieldStyle(.plain)
                 HStack {
-                    Picker("科目", selection: $item.subject) {
+                    Picker(L10n.text("科目"), selection: $item.subject) {
                         ForEach(SubjectPreset.allCases) { s in
-                            Text(s.rawValue).tag(s.rawValue)
+                            Text(L10n.lookup(s.rawValue)).tag(s.rawValue)
                         }
                     }
                     .frame(maxWidth: 180)
                     Spacer()
-                    Button("保存") { state.save(item) }
+                    Button(L10n.text("保存")) { state.save(item) }
                         .keyboardShortcut("s", modifiers: .command)
                 }
                 FilePreview(path: item.filePath)
                 HStack {
-                    Text("备注")
+                    Text(L10n.text("备注"))
                         .font(.headline)
                     Spacer()
-                    Button("识别文字") {
+                    Button(L10n.text("识别文字")) {
                         Task { await state.recognizeHomeworkText(item) }
                     }
                     .disabled(
@@ -91,8 +91,8 @@ struct HomeworkDetail: View {
                     )
                     .help(
                         DocumentTextRecognizer.shouldFillEmptyNotes(item.notes)
-                            ? "识别写入空备注，不改预览"
-                            : "已有备注，不会覆盖"
+                            ? L10n.text("识别写入空备注，不改预览")
+                            : L10n.text("已有备注，不会覆盖")
                     )
                 }
                 TextEditor(text: $item.notes)
@@ -102,10 +102,10 @@ struct HomeworkDetail: View {
                     .padding(8)
                     .background(.quaternary.opacity(0.35), in: RoundedRectangle(cornerRadius: 8))
                 Divider()
-                Text("登记错题").font(.headline)
-                TextField("题干摘要", text: $mistakeQuestion)
+                Text(L10n.text("登记错题")).font(.headline)
+                TextField(L10n.text("题干摘要"), text: $mistakeQuestion)
                     .textFieldStyle(.roundedBorder)
-                Button("加入错题本") {
+                Button(L10n.text("加入错题本")) {
                     let q = mistakeQuestion.trimmingCharacters(in: .whitespacesAndNewlines)
                     guard !q.isEmpty else { return }
                     let mistake = Mistake(homeworkId: item.id, subject: item.subject, question: q, imagePath: item.filePath)
@@ -138,13 +138,13 @@ struct FilePreview: View {
         let ext = url.pathExtension.lowercased()
         Group {
             if path.isEmpty {
-                Label("尚未关联文件", systemImage: "doc")
+                Label(L10n.text("尚未关联文件"), systemImage: "doc")
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     .padding(.horizontal, 10)
                     .background(.quaternary.opacity(0.35), in: RoundedRectangle(cornerRadius: 8))
             } else if !FileManager.default.fileExists(atPath: path) {
-                Label("找不到文件：\(url.lastPathComponent)", systemImage: "exclamationmark.triangle.fill")
+                Label(L10n.text("找不到文件：\(url.lastPathComponent)"), systemImage: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(10)
@@ -165,7 +165,7 @@ struct FilePreview: View {
                     Image(systemName: "doc")
                     Text(url.lastPathComponent)
                     Spacer()
-                    Button("用访达打开") { NSWorkspace.shared.open(url) }
+                    Button(L10n.text("用访达打开")) { NSWorkspace.shared.open(url) }
                 }
                 .padding(10)
                 .background(.quaternary.opacity(0.35), in: RoundedRectangle(cornerRadius: 8))

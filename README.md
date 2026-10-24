@@ -15,12 +15,25 @@
 
 A lecture ends. The hard part is turning what you heard into something you can return to.
 
-**Askfor (求索)** is a native Mac study archive for authorized recordings, transcripts, homework, and mistakes worth revisiting. It brings those pieces together in a small Swift app: record or import, transcribe with Apple's on-device speech tools, organize by course, and optionally ask a model you configure to help make sense of the text.
+**Askfor (求索)** is a lightweight, native Mac study archive for authorized recordings, transcripts, homework, and mistakes worth revisiting. It brings those pieces together in a small Swift app: record or import, transcribe with Apple's on-device speech tools, organize by course, and optionally ask a model you configure to help make sense of the text.
 
 Built from a personal learning workflow. Shared as an early, build-it-yourself source release.
-The current app interface is primarily Chinese; the project documentation is bilingual.
+The interface follows your macOS language preferences: English (**Askfor**) or Simplified Chinese (**求索**). Documentation is bilingual.
 
 > **Permission comes first.** A microphone permission dialog grants device access; it does not grant permission to record a class. Obtain the required authorization before recording, and separately check whether AI processing or sharing is allowed. Askfor has no university affiliation or compliance certification.
+
+## Built to stay light
+
+**A compiled Swift core, without an always-on transcription server.** Askfor uses native SwiftUI and Apple's on-device Speech frameworks. You do not need to install or keep a separate Whisper service running, or load Whisper weights just to browse your archive. Supported languages may require a one-time download of Apple speech assets.
+
+The app does not require an Electron shell or Python runtime. Its core compiles to native code; formulas use a bundled MathJax renderer when needed. AI study notes are optional and use the model endpoint you choose.
+
+| Idle scenario | Physical footprint | Resident memory | CPU |
+| :--- | ---: | ---: | ---: |
+| Empty archive | 17.8 MiB | 67.4 MiB | 0.01% |
+| 1,000 synthetic lectures | 24.7 MiB | 71.1 MiB | 0.01% |
+
+Measured on an **M4 / 16 GiB Mac**, 2026-10-24, Release build: three runs per scenario, 5-second warm-up and 20-second sampling. **Main-process idle measurements only**; active transcription and system/helper processes are outside this test. Built app bundle: **5.16 MiB**, excluding system frameworks and speech assets. [Method, scope and raw data →](docs/PERFORMANCE.md)
 
 ## What it does
 
@@ -33,7 +46,7 @@ The current app interface is primarily Chinese; the project documentation is bil
 | A course schedule | Optional calendar matching for recordings |
 | Notes you want to keep | Markdown exports and rendered mathematical notation |
 
-**Native SwiftUI.** One process, five Swift libraries, SQLite storage. No Electron or Python runtime required by the app.
+**Native SwiftUI.** One native app, five Swift libraries, SQLite storage. No Electron or Python runtime required by the app.
 
 **Local archive, optional AI.** Recording, storage, OCR, and supported speech transcription run on the Mac. AI summaries use a separately configured OpenAI-compatible endpoint. A local gateway may forward requests elsewhere; check its configuration.
 
@@ -43,7 +56,7 @@ The current app interface is primarily Chinese; the project documentation is bil
 
 ![Askfor synthetic study-note preview](docs/assets/app-preview.png)
 
-A real app screenshot with synthetic notes and a silent generated fixture. No classroom audio or student data is shown.
+A real app screenshot with synthetic notes and a silent generated fixture; screen-control overlays and the cursor have been removed. No classroom audio or student data is shown.
 
 ## Build and run
 

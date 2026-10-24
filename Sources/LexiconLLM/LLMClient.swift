@@ -23,18 +23,18 @@ public enum LLMClientError: LocalizedError, Equatable {
     public var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "模型地址无效。请填写 https 地址；只有本机 localhost、127.0.0.1 或 ::1 可以用 http。"
+            return L10n.text("模型地址无效。请填写 https 地址；只有本机 localhost、127.0.0.1 或 ::1 可以用 http。")
         case .embeddedCredentials:
-            return "模型地址不能带用户名或密码。密钥请填在 API Key，不要写进网址。"
+            return L10n.text("模型地址不能带用户名或密码。密钥请填在 API Key，不要写进网址。")
         case .insecureEndpoint:
-            return "除本机 localhost、127.0.0.1、::1 外，模型地址必须使用 https。"
+            return L10n.text("除本机 localhost、127.0.0.1、::1 外，模型地址必须使用 https。")
         case .http(let code, let body):
             if code == 401 || body.contains("invalid_api_key") || body.contains("API token") || body.contains("Malformed") {
-                return "API Key 无效或被截断。请在设置里填写完整的密钥。"
+                return L10n.text("API Key 无效或被截断。请在设置里填写完整的密钥。")
             }
-            return "LLM 返回 HTTP \(code)：\(body.prefix(240))"
+            return L10n.text("LLM 返回 HTTP \(code)：\(body.prefix(240))")
         case .empty:
-            return "模型没有返回内容。"
+            return L10n.text("模型没有返回内容。")
         case .transport(let message):
             return message
         }
@@ -76,15 +76,15 @@ public struct LLMRequestDisclosure: Equatable, Sendable {
     public var summary: String {
         let roles = messageRoles.joined(separator: ", ")
         let authorization = sendsAuthorizationHeader
-            ? "；Authorization: Bearer（密钥不显示在这里）"
+            ? L10n.text("；Authorization: Bearer（密钥不显示在这里）")
             : ""
-        return """
+        return L10n.text("""
         配置的地址：\(configuredBaseURL)
         将要请求：\(destination)
         正文：model=\(model)，temperature=\(Self.format(temperature))，max_tokens=\(maxTokens)，stream=\(stream)，messages（\(roles)）
         请求头：Content-Type: application/json\(authorization)
         不会自动附带原始音频、本机文件路径或课件。
-        """
+        """)
     }
 
     public static func make(settings: AppSettings, messages: [ChatMessage]) throws -> LLMRequestDisclosure {
@@ -141,7 +141,7 @@ public final class LLMClient: Sendable {
         // A long completion can sit silent. Idle sleep during that wait drops the socket.
         let activity = ProcessInfo.processInfo.beginActivity(
             options: [.userInitiated, .idleSystemSleepDisabled],
-            reason: "求索正在等待模型返回结果"
+            reason: L10n.text("求索正在等待模型返回结果")
         )
         defer { ProcessInfo.processInfo.endActivity(activity) }
 
@@ -158,7 +158,7 @@ public final class LLMClient: Sendable {
 
         // Closing the lid forces sleep. Cancel before the socket freezes so
         // Hermes interrupts, then send the same request again after wake.
-        var lastError: Error = LLMClientError.transport("模型请求在合盖后没有恢复。")
+        var lastError: Error = LLMClientError.transport(L10n.text("模型请求在合盖后没有恢复。"))
         for _ in 0..<4 {
             let watch = LidSleepWatch()
             do {
@@ -211,7 +211,7 @@ public final class LLMClient: Sendable {
                   let choice = (obj["choices"] as? [[String: Any]])?.first else { return }
             if let reason = choice["finish_reason"] as? String, reason == "error" {
                 let hermes = obj["hermes"] as? [String: Any]
-                failed = (hermes?["error"] as? String) ?? (obj["error"] as? [String: Any])?["message"] as? String ?? "模型没有完成。"
+                failed = (hermes?["error"] as? String) ?? (obj["error"] as? [String: Any])?["message"] as? String ?? L10n.text("模型没有完成。")
                 return
             }
             let delta = choice["delta"] as? [String: Any]
@@ -284,20 +284,20 @@ public final class LLMClient: Sendable {
         do {
             let ids = try await listModels(settings: settings)
             if ids.isEmpty {
-                return "已连通 \(settings.llmBaseURL)，但还没有列出模型。"
+                return L10n.text("已连通 \(settings.llmBaseURL)，但还没有列出模型。")
             }
-            return "已连通，可用模型：\(ids.prefix(6).joined(separator: "、"))"
+            return L10n.text("已连通，可用模型：\(ids.prefix(6).joined(separator: "、"))")
         } catch {
-            return "未连通：\(error.localizedDescription)"
+            return L10n.text("未连通：\(error.localizedDescription)")
         }
     }
 
     private static func transportMessage(_ error: Error) -> String {
         let ns = error as NSError
         if ns.domain == NSURLErrorDomain && ns.code == NSURLErrorTimedOut {
-            return "模型还在推理，客户端先超时了。思考开着、大约 5 token/s 时会很久，已取消超时限制后请再试一次。"
+            return L10n.text("模型还在推理，客户端先超时了。思考开着、大约 5 token/s 时会很久，已取消超时限制后请再试一次。")
         }
-        return "连不上模型：\(error.localizedDescription)。请确认你配置的地址上有兼容 OpenAI 的服务在运行。"
+        return L10n.text("连不上模型：\(error.localizedDescription)。请确认你配置的地址上有兼容 OpenAI 的服务在运行。")
     }
 
     private static func unwrap(_ result: Result<URL, LLMEndpointError>) throws -> URL {

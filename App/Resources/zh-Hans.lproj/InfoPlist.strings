@@ -1,0 +1,7 @@
+"CFBundleName" = "求索";
+"CFBundleDisplayName" = "求索";
+"NSMicrophoneUsageDescription" = "求索在你确认获得录音许可后使用麦克风，将音频保存到本机。";
+"NSSpeechRecognitionUsageDescription" = "求索使用系统本机语音识别，把你有权处理的音频转成文字；首次可能下载语言资源。";
+"NSCalendarsUsageDescription" = "求索读取日历里的课表，把课堂录音按时间归到对应课时。";
+"NSCalendarsFullAccessUsageDescription" = "求索读取日历里的课表，把课堂录音按时间归到对应课时。";
+"NSDownloadsFolderUsageDescription" = "求索读取你选择导入的学习材料与收件箱文件。";

@@ -1,5 +1,18 @@
 # Source release — 2026-10-23 / 源码发布说明
 
+## Update — 2026-10-24 / 更新
+
+- English product name: **Askfor**; Chinese name: **求索**. Repository URL and stored archive identifiers remain stable.
+- The interface follows macOS language preferences, with English and Simplified Chinese catalogs covering 294 strings. This includes the window title, navigation, controls, settings, AppKit confirmations, status-menu strings, permission descriptions and library errors. Unsupported languages fall back through the supported preferences, then English. User-authored content is not translated; the transcription language remains a separate setting. Relaunch after changing the app’s language in macOS.
+- Removed screen-control and pointer overlays from the synthetic preview image using image editing; the README identifies this cleanup.
+- Added reproducible [resource measurements](PERFORMANCE.md), every memory sample and CPU deltas, with a development-only standard-library measurement script. No Whisper comparison or active-transcription performance claim is made.
+- Verification: **128 discovered tests, 127 passed, 1 live microphone test skipped, 0 failures**. Release build and both string catalogs passed checks; localization format placeholders match.
+- UI checks used a separately identified, ad-hoc signed test copy and disposable synthetic archives. English: all five navigation areas, four settings sections, recording authorization/cancel and AI disclosure/cancel. Chinese: window title, navigation, recording labels/tabs and recording authorization/cancel. No real microphone capture or model request occurred. The status-menu strings were reviewed in source; their native menu was not separately exercised.
+
+英文名已改为 **Askfor**，中文名保留“求索”。应用会按 macOS 的语言偏好显示英文或简体中文，课程名称、文件名、笔记和已有档案标识不会被翻译。语音转写语言仍独立设置；修改系统中的应用语言后重新启动即可。
+
+截图已清除屏幕控制叠层与光标，说明中注明了清理；README 新增轻量架构说明和带原始数据的实测表。新版本完整测试 127 项通过、1 项真实麦克风测试跳过，无失败。独立测试副本完成了上述中英界面及取消路径检查，没有录音或发送模型请求。
+
 ## Scope / 范围
 
 A clean source snapshot of the personal Askfor/Lexicon app, prepared without the original Git history, editor state, agent conversations, archives, tokens, or real course media. The original working directory and its uncommitted changes were preserved.

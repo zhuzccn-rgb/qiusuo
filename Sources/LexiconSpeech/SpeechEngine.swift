@@ -42,7 +42,7 @@ public final class SpeechEngine: ObservableObject {
 
         cancelFlag.reset()
         beginTranscribeActivity()
-        await publish(busy: true, text: "正在转写…")
+        await publish(busy: true, text: L10n.text("正在转写…"))
         do {
             let text = try await transcribeFile(url, localeIdentifier: localeIdentifier, onPartial: onPartial)
             await finishSession()
@@ -65,11 +65,11 @@ public final class SpeechEngine: ObservableObject {
             throw SpeechEngineError.invalidAudio(AudioFileIO.message(for: error))
         }
         if reader.duration < 0.4 {
-            throw SpeechEngineError.invalidAudio("录音没有有效音频（时长为 0）。请重新录这一段。")
+            throw SpeechEngineError.invalidAudio(L10n.text("录音没有有效音频（时长为 0）。请重新录这一段。"))
         }
-        await publish(busy: true, text: "正在检查录音…")
+        await publish(busy: true, text: L10n.text("正在检查录音…"))
         if !(try reader.containsAudibleAudio()) {
-            throw SpeechEngineError.invalidAudio("这份录音是静音（有时长，但样本全是 0），没法转写。不是听写包的问题，请重新录。")
+            throw SpeechEngineError.invalidAudio(L10n.text("这份录音是静音（有时长，但样本全是 0），没法转写。不是听写包的问题，请重新录。"))
         }
         if #available(macOS 26.0, *), SpeechTranscriber.isAvailable {
             return try await transcribeWithAnalyzer(
@@ -102,13 +102,13 @@ public final class SpeechEngine: ObservableObject {
         while cursor < reader.duration {
             if cancelFlag.isOn { break }
             let marked = cursor
-            await publish(busy: true, text: "转写 \(Self.clock(cursor)) / \(total)")
+            await publish(busy: true, text: L10n.text("转写 \(Self.clock(cursor)) / \(total)"))
             cursor = try UtteranceSilenceSkip.skipLeading(reader: reader, from: cursor)
             if cursor >= reader.duration { break }
 
             let locale = locales[min(localeIndex, locales.count - 1)]
             if cursor != marked {
-                await publish(busy: true, text: "转写 \(Self.clock(cursor)) / \(total)")
+                await publish(busy: true, text: L10n.text("转写 \(Self.clock(cursor)) / \(total)"))
             }
 
             do {
@@ -185,7 +185,7 @@ public final class SpeechEngine: ObservableObject {
         endTranscribeActivity()
         transcribeActivity = ProcessInfo.processInfo.beginActivity(
             options: [.userInitiated, .idleSystemSleepDisabled],
-            reason: "求索正在转写"
+            reason: L10n.text("求索正在转写")
         )
     }
 
@@ -241,7 +241,7 @@ public final class SpeechEngine: ObservableObject {
         // 2b stays off until a same-file A/B shows Analyzer+SpeechDetector is not worse.
         let analyzer = try await makeAnalyzer(transcriber: transcriber)
         let total = Self.clock(duration)
-        await publish(busy: true, text: "转写 0:00 / \(total)")
+        await publish(busy: true, text: L10n.text("转写 0:00 / \(total)"))
 
         let collect = Task { () -> String in
             var text = ""
@@ -259,7 +259,7 @@ public final class SpeechEngine: ObservableObject {
                 )
                 let end = CMTimeGetSeconds(result.range.end)
                 if end.isFinite { lastEnd = max(lastEnd, end) }
-                await self.publish(busy: true, text: "转写 \(Self.clock(lastEnd)) / \(total)")
+                await self.publish(busy: true, text: L10n.text("转写 \(Self.clock(lastEnd)) / \(total)"))
                 onPartial?(text, lastEnd)
             }
             return text
@@ -340,7 +340,7 @@ public final class SpeechEngine: ObservableObject {
             throw SpeechEngineError.localeUnavailable(transcriber.selectedLocales.first?.identifier ?? "en-US")
         }
         if status == .installed { return }
-        await publish(busy: true, text: "正在下载听写模型（只需一次）…")
+        await publish(busy: true, text: L10n.text("正在下载听写模型（只需一次）…"))
         if let request = try await AssetInventory.assetInstallationRequest(supporting: [transcriber]) {
             try await request.downloadAndInstall()
         }
@@ -548,17 +548,17 @@ public enum SpeechEngineError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .notAuthorized:
-            return "未授权语音识别。请在系统设置 → 隐私与安全性 → 语音识别中允许「求索」。"
+            return L10n.text("未授权语音识别。请在系统设置 → 隐私与安全性 → 语音识别中允许「求索」。")
         case .localeUnavailable(let id):
-            return "系统没有安装 \(id) 的离线语音包。打开系统设置 → 键盘 → 听写，下载 English（United States）。"
+            return L10n.text("系统没有安装 \(id) 的离线语音包。打开系统设置 → 键盘 → 听写，下载 English（United States）。")
         case .emptyResult:
-            return "没有识别到语音。请确认麦克风有声音后再转写。"
+            return L10n.text("没有识别到语音。请确认麦克风有声音后再转写。")
         case .invalidAudio(let message):
             return message
         case .speechKit(let message):
             return message
         case .cancelled:
-            return "已停止转写。"
+            return L10n.text("已停止转写。")
         }
     }
 }

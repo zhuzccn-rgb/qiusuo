@@ -1,3 +1,4 @@
+import LexiconCore
 import AppKit
 import Combine
 import SwiftUI
@@ -35,19 +36,19 @@ final class StatusItemController: NSObject {
         if recording {
             item.button?.title = " \(Self.clock(captured))"
             item.button?.toolTip = stalled
-                ? "求索 · 写入已停止，已写入 \(Self.clock(captured))。点菜单停止并保存。"
-                : "求索 · 正在录音，已写入 \(Self.clock(captured))"
+                ? L10n.text("求索 · 写入已停止，已写入 \(Self.clock(captured))。点菜单停止并保存。")
+                : L10n.text("求索 · 正在录音，已写入 \(Self.clock(captured))")
         } else {
             item.button?.title = ""
-            item.button?.toolTip = "求索"
+            item.button?.toolTip = L10n.text("求索")
         }
         if recording != wasRecording {
             wasRecording = recording
             rebuildMenu()
         } else if recording {
             item.menu?.items.first?.title = stalled
-                ? "写入已停止  \(Self.clock(captured))"
-                : "录音中  \(Self.clock(captured))"
+                ? L10n.text("写入已停止  \(Self.clock(captured))")
+                : L10n.text("录音中  \(Self.clock(captured))")
         }
     }
 
@@ -59,23 +60,23 @@ final class StatusItemController: NSObject {
         if recording {
             let status = NSMenuItem(
                 title: stalled
-                    ? "写入已停止  \(Self.clock(captured))"
-                    : "录音中  \(Self.clock(captured))",
+                    ? L10n.text("写入已停止  \(Self.clock(captured))")
+                    : L10n.text("录音中  \(Self.clock(captured))"),
                 action: nil,
                 keyEquivalent: ""
             )
             status.isEnabled = false
             menu.addItem(status)
-            let stop = NSMenuItem(title: "停止并保存", action: #selector(stop), keyEquivalent: "")
+            let stop = NSMenuItem(title: L10n.text("停止并保存"), action: #selector(stop), keyEquivalent: "")
             stop.target = self
             menu.addItem(stop)
         } else {
-            let start = NSMenuItem(title: "开始录音", action: #selector(start), keyEquivalent: "")
+            let start = NSMenuItem(title: L10n.text("开始录音"), action: #selector(start), keyEquivalent: "")
             start.target = self
             menu.addItem(start)
         }
         menu.addItem(.separator())
-        let open = NSMenuItem(title: "打开求索", action: #selector(reveal), keyEquivalent: "")
+        let open = NSMenuItem(title: L10n.text("打开求索"), action: #selector(reveal), keyEquivalent: "")
         open.target = self
         menu.addItem(open)
         item.menu = menu
@@ -106,12 +107,12 @@ final class StatusItemController: NSObject {
             let config = NSImage.SymbolConfiguration(pointSize: 13, weight: .bold)
                 .applying(.init(paletteColors: [stalled ? NSColor.systemOrange : NSColor.systemRed]))
             let name = stalled ? "pause.circle.fill" : "record.circle.fill"
-            let image = NSImage(systemSymbolName: name, accessibilityDescription: stalled ? "写入已停止" : "录音中")
+            let image = NSImage(systemSymbolName: name, accessibilityDescription: stalled ? L10n.text("写入已停止") : L10n.text("录音中"))
             let tinted = image?.withSymbolConfiguration(config)
             tinted?.isTemplate = false
             return tinted
         }
-        let image = NSImage(systemSymbolName: "mic", accessibilityDescription: "求索")
+        let image = NSImage(systemSymbolName: "mic", accessibilityDescription: L10n.text("求索"))
         image?.isTemplate = true
         return image
     }

@@ -105,6 +105,6 @@ final class LLMClientTests: XCTestCase {
     func testHTTPErrorMentionsToken() {
         let text = LLMClientError.http(401, "invalid_api_key").localizedDescription
         XCTAssertTrue(text.contains("Token") || text.contains("token") || text.contains("API"))
-        XCTAssertEqual(LLMClientError.empty.localizedDescription, "模型没有返回内容。")
+        XCTAssertEqual(LLMClientError.empty.localizedDescription, L10n.text("模型没有返回内容。"))
     }
 }

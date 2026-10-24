@@ -46,7 +46,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.recoverEngine(reason: "系统唤醒")
+            self?.recoverEngine(reason: L10n.text("系统唤醒"))
         })
         workspaceObservers.append(NotificationCenter.default.addObserver(
             forName: NSApplication.didBecomeActiveNotification,
@@ -54,7 +54,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
             queue: .main
         ) { [weak self] _ in
             guard let self, self.isRecording, self.isStalled else { return }
-            self.recoverEngine(reason: "重新激活")
+            self.recoverEngine(reason: L10n.text("重新激活"))
         })
     }
 
@@ -164,9 +164,9 @@ public final class AudioRecorder: NSObject, ObservableObject {
         fileURL = nil
         startedAt = nil
         if framesWritten == 0 {
-            lastError = lastError ?? "录音计时在走，但麦克风数据没有写入文件。"
+            lastError = lastError ?? L10n.text("录音计时在走，但麦克风数据没有写入文件。")
         } else if capturedPeak < 0.0008 {
-            lastError = lastError ?? "麦克风写入的全是静音。请检查输入设备后重录。"
+            lastError = lastError ?? L10n.text("麦克风写入的全是静音。请检查输入设备后重录。")
         }
         return url
     }
@@ -190,13 +190,13 @@ public final class AudioRecorder: NSObject, ObservableObject {
             if elapsed > 8, idle > 8 {
                 isStalled = true
                 lastError = framesWritten == 0
-                    ? "计时在走，但还没有音频写入。正在尝试恢复麦克风…"
-                    : "写入已停止。正在尝试恢复麦克风…"
-                recoverEngine(reason: framesWritten == 0 ? "没有写入" : "写入中断")
+                    ? L10n.text("计时在走，但还没有音频写入。正在尝试恢复麦克风…")
+                    : L10n.text("写入已停止。正在尝试恢复麦克风…")
+                recoverEngine(reason: framesWritten == 0 ? L10n.text("没有写入") : L10n.text("写入中断"))
             }
             if elapsed > 8, idle > 45, capturedSeconds > 0.5, !needsAutoSave {
                 needsAutoSave = true
-                lastError = "超过 45 秒没有新音频写入，将自动保存已经录到的部分。"
+                lastError = L10n.text("超过 45 秒没有新音频写入，将自动保存已经录到的部分。")
             }
         }
         guard capturedPeak < 0.0008, capturedSeconds > 0.5 else { return }
@@ -206,7 +206,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
         }
         if Date() >= silenceGraceUntil, elapsed > 4 {
             isStalled = true
-            lastError = "麦克风写入的全是静音。当前输入是「\(inputDeviceName.isEmpty ? "系统默认" : inputDeviceName)」。请停止后在系统设置里改成 Mac 麦克风再录。"
+            lastError = L10n.text("麦克风写入的全是静音。当前输入是「\(inputDeviceName.isEmpty ? L10n.text("系统默认") : inputDeviceName)」。请停止后在系统设置里改成 Mac 麦克风再录。")
         }
     }
 
@@ -220,11 +220,11 @@ public final class AudioRecorder: NSObject, ObservableObject {
         defer { recovering = false }
         do {
             try assembleEngine(creatingWriter: false, useVoiceProcessing: false)
-            lastError = "系统人声处理录出来是静音，已改用原始麦克风。"
+            lastError = L10n.text("系统人声处理录出来是静音，已改用原始麦克风。")
             silenceGraceUntil = Date().addingTimeInterval(5)
             isStalled = false
         } catch {
-            lastError = "系统人声处理录出来是静音，切回原始麦失败。请停止后关掉该开关再录。"
+            lastError = L10n.text("系统人声处理录出来是静音，切回原始麦失败。请停止后关掉该开关再录。")
             isStalled = true
         }
     }
@@ -240,7 +240,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
             try attachEngine(creatingWriter: false)
             isStalled = false
         } catch {
-            lastError = "\(reason) 后无法继续写。请点停止再重新开始。"
+            lastError = L10n.text("\(reason) 后无法继续写。请点停止再重新开始。")
             isStalled = true
         }
     }
@@ -278,7 +278,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
             } catch {
                 throw RecorderError.startFailed
             }
-            lastError = "系统人声处理开不了，已改用原始麦克风。"
+            lastError = L10n.text("系统人声处理开不了，已改用原始麦克风。")
             droppedVoiceProcessing = true
         }
     }
@@ -404,7 +404,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
         ) { [weak self] note in
             guard let self else { return }
             guard (note.object as? AVAudioEngine) === self.engine else { return }
-            self.recoverEngine(reason: "音频设备变化")
+            self.recoverEngine(reason: L10n.text("音频设备变化"))
         }
     }
 
@@ -419,7 +419,7 @@ public final class AudioRecorder: NSObject, ObservableObject {
         endSleepAssertion()
         sleepActivity = ProcessInfo.processInfo.beginActivity(
             options: [.idleSystemSleepDisabled, .userInitiated],
-            reason: "求索正在录课堂"
+            reason: L10n.text("求索正在录课堂")
         )
     }
 
@@ -432,12 +432,12 @@ public final class AudioRecorder: NSObject, ObservableObject {
 
     private func disableAppExit() {
         ProcessInfo.processInfo.disableSuddenTermination()
-        ProcessInfo.processInfo.disableAutomaticTermination("求索正在录音")
+        ProcessInfo.processInfo.disableAutomaticTermination(L10n.text("求索正在录音"))
     }
 
     private func enableAppExit() {
         ProcessInfo.processInfo.enableSuddenTermination()
-        ProcessInfo.processInfo.enableAutomaticTermination("求索正在录音")
+        ProcessInfo.processInfo.enableAutomaticTermination(L10n.text("求索正在录音"))
     }
 }
 
@@ -555,7 +555,7 @@ private final class RecordingWriter: @unchecked Sendable {
         guard let converted = convert.convert(buffer) else {
             consecutiveDrops += 1
             if consecutiveDrops >= 8 {
-                lastWriteError = "麦克风数据转换失败，已连续丢掉 \(consecutiveDrops) 包。"
+                lastWriteError = L10n.text("麦克风数据转换失败，已连续丢掉 \(consecutiveDrops) 包。")
             }
             return
         }
@@ -588,11 +588,11 @@ public enum RecorderError: LocalizedError {
 
     public var errorDescription: String? {
         switch self {
-        case .noMicrophone: return "需要麦克风权限才能录课堂音频。"
-        case .startFailed: return "无法开始录音。"
-        case .alreadyRecording: return "已经在录音。请先停止当前这一条。"
-        case .emptyFile: return "录音计时在走，但麦克风数据没有写入文件。请再录一次。"
-        case .compressFailed: return "音频压缩失败，原文件已保留。"
+        case .noMicrophone: return L10n.text("需要麦克风权限才能录课堂音频。")
+        case .startFailed: return L10n.text("无法开始录音。")
+        case .alreadyRecording: return L10n.text("已经在录音。请先停止当前这一条。")
+        case .emptyFile: return L10n.text("录音计时在走，但麦克风数据没有写入文件。请再录一次。")
+        case .compressFailed: return L10n.text("音频压缩失败，原文件已保留。")
         }
     }
 }

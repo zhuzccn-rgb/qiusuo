@@ -86,19 +86,19 @@ public final class CalendarMatcher: ObservableObject {
         switch status {
         case .notDetermined:
             if let lastRequestError, !lastRequestError.isEmpty {
-                return "系统没有弹出日历询问（\(lastRequestError)）。重新打包后签名会变，终端跑 tccutil reset Calendar app.lexicon.archive 再点这里。"
+                return L10n.text("系统没有弹出日历询问（\(lastRequestError)）。重新打包后签名会变，终端跑 tccutil reset Calendar app.lexicon.archive 再点这里。")
             }
-            return "点「允许读取日历」后系统会弹出询问。重新打包过的求索要再同意一次。"
+            return L10n.text("点「允许读取日历」后系统会弹出询问。重新打包过的求索要再同意一次。")
         case .denied:
-            return "日历权限被拒绝了。系统设置 → 隐私与安全性 → 日历，把求索打开。"
+            return L10n.text("日历权限被拒绝了。系统设置 → 隐私与安全性 → 日历，把求索打开。")
         case .restricted:
-            return "这台 Mac 的描述文件禁止访问日历。"
+            return L10n.text("这台 Mac 的描述文件禁止访问日历。")
         case .writeOnly:
-            return "现在只给了「仅添加日程」，读不到课表。系统设置 → 隐私与安全性 → 日历，把求索改成完全访问。"
+            return L10n.text("现在只给了「仅添加日程」，读不到课表。系统设置 → 隐私与安全性 → 日历，把求索改成完全访问。")
         case .fullAccess:
-            return "日历权限正常。"
+            return L10n.text("日历权限正常。")
         @unknown default:
-            return "拿不到日历权限（状态 \(status.rawValue)）。"
+            return L10n.text("拿不到日历权限（状态 \(status.rawValue)）。")
         }
     }
 

@@ -64,7 +64,7 @@ final class AppState: ObservableObject {
             store = try ArchiveStore()
             settings = try store.loadSettings()
         } catch {
-            fatalError("无法打开数据库：\(error.localizedDescription)")
+            fatalError(L10n.text("无法打开数据库：\(error.localizedDescription)"))
         }
         if AppPaths.isLegacyCloudInbox(settings.inboxPath) {
             let dest = AppPaths.defaultInboxURL
@@ -266,7 +266,7 @@ final class AppState: ObservableObject {
             replaceLectures(try store.allLectures())
             missingLectureFiles = Self.missingFiles(in: lectures)
         } catch {
-            statusMessage = "读取档案失败：\(error.localizedDescription)"
+            statusMessage = L10n.text("读取档案失败：\(error.localizedDescription)")
         }
         refreshInbox()
     }
@@ -291,8 +291,8 @@ final class AppState: ObservableObject {
         guard removed > 0 else { return }
         reload()
         statusMessage = removed == 1
-            ? "已从作业里移出一份课件。课件留在收件箱，不会自动发给模型。"
-            : "已从作业里移出 \(removed) 份课件。课件留在收件箱，不会自动发给模型。"
+            ? L10n.text("已从作业里移出一份课件。课件留在收件箱，不会自动发给模型。")
+            : L10n.text("已从作业里移出 \(removed) 份课件。课件留在收件箱，不会自动发给模型。")
     }
 
     /// Crash / force-quit can leave a CAF on disk with no SQLite row. Bring it back.
@@ -327,8 +327,8 @@ final class AppState: ObservableObject {
         if added > 0 {
             reload()
             statusMessage = added == 1
-                ? "发现一条上次未入库的录音，已加入列表。"
-                : "发现 \(added) 条上次未入库的录音，已加入列表。"
+                ? L10n.text("发现一条上次未入库的录音，已加入列表。")
+                : L10n.text("发现 \(added) 条上次未入库的录音，已加入列表。")
         }
     }
 
@@ -336,7 +336,7 @@ final class AppState: ObservableObject {
         do {
             try store.saveSettings(settings)
         } catch {
-            statusMessage = "设置未保存：\(error.localizedDescription)"
+            statusMessage = L10n.text("设置未保存：\(error.localizedDescription)")
         }
         AppPaths.ensureInboxLayout(at: URL(fileURLWithPath: settings.inboxPath))
         startWatcher()
@@ -350,7 +350,7 @@ final class AppState: ObservableObject {
                 ids.insert(settings.llmModel, at: 0)
             }
             availableModels = ids
-            modelsMessage = ids.isEmpty ? "该地址没有列出模型。" : "\(ids.count) 个模型"
+            modelsMessage = ids.isEmpty ? L10n.text("该地址没有列出模型。") : L10n.text("\(ids.count) 个模型")
         } catch {
             availableModels = settings.llmModel.isEmpty ? [] : [settings.llmModel]
             modelsMessage = error.localizedDescription
@@ -422,24 +422,24 @@ final class AppState: ObservableObject {
             reload()
         } catch {
             if Database.isCorrupt(error) {
-                statusMessage = "保存失败：档案库曾损坏，已尝试修复。请再保存一次。录音文件还在。"
+                statusMessage = L10n.text("保存失败：档案库曾损坏，已尝试修复。请再保存一次。录音文件还在。")
             } else {
-                statusMessage = "保存失败：\(error.localizedDescription)"
+                statusMessage = L10n.text("保存失败：\(error.localizedDescription)")
             }
         }
     }
 
     func importInboxItem(_ item: InboxItem) {
         if item.kind == .archive || InboxWatcher.isArchive(item.url) {
-            statusMessage = "压缩包不会自动导入。把要处理的文件留在收件箱，再手动导入。"
+            statusMessage = L10n.text("压缩包不会自动导入。把要处理的文件留在收件箱，再手动导入。")
             return
         }
         if InboxWatcher.inboxFolder(for: item.url, inboxRoot: URL(fileURLWithPath: settings.inboxPath)) == "每周导入" {
-            statusMessage = "「每周导入」里的文件不会自动拆开或导入。"
+            statusMessage = L10n.text("「每周导入」里的文件不会自动拆开或导入。")
             return
         }
         if InboxWatcher.inboxFolder(for: item.url, inboxRoot: URL(fileURLWithPath: settings.inboxPath)) == "每周总结" {
-            statusMessage = "「每周总结」不用导入。"
+            statusMessage = L10n.text("「每周总结」不用导入。")
             return
         }
         switch item.kind {
@@ -447,7 +447,7 @@ final class AppState: ObservableObject {
             importAudioAndReveal(item.url)
             return
         case .slides:
-            statusMessage = "课件留在收件箱。提炼要点不会读取课件，也不会把它发给模型。"
+            statusMessage = L10n.text("课件留在收件箱。提炼要点不会读取课件，也不会把它发给模型。")
             return
         case .mistakePhoto:
             if (try? store.mistake(withImagePath: item.url.path)) != nil { return }
@@ -460,10 +460,10 @@ final class AppState: ObservableObject {
             }
             save(hw)
         case .archive:
-            statusMessage = "压缩包不会自动导入。把要处理的文件留在收件箱，再手动导入。"
+            statusMessage = L10n.text("压缩包不会自动导入。把要处理的文件留在收件箱，再手动导入。")
             return
         }
-        statusMessage = "已导入 \(item.url.lastPathComponent)"
+        statusMessage = L10n.text("已导入 \(item.url.lastPathComponent)")
     }
 
     func importAllInbox() {
@@ -492,9 +492,9 @@ final class AppState: ObservableObject {
         }
         reload()
         var parts: [String] = []
-        if audioCount > 0 { parts.append("\(audioCount) 条录音") }
-        if otherCount > 0 { parts.append("\(otherCount) 项") }
-        statusMessage = parts.isEmpty ? "没有新文件可导入。" : "已导入 " + parts.joined(separator: "、")
+        if audioCount > 0 { parts.append(L10n.text("\(audioCount) 条录音")) }
+        if otherCount > 0 { parts.append(L10n.text("\(otherCount) 项")) }
+        statusMessage = parts.isEmpty ? L10n.text("没有新文件可导入。") : L10n.text("已导入 ") + parts.joined(separator: "、")
     }
 
     func chooseAudioToImport() {
@@ -502,8 +502,8 @@ final class AppState: ObservableObject {
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = true
-        panel.title = "导入录音"
-        panel.prompt = "导入"
+        panel.title = L10n.text("导入录音")
+        panel.prompt = L10n.text("导入")
         panel.allowedContentTypes = Self.audioContentTypes
         let inboxAudio = URL(fileURLWithPath: settings.inboxPath).appendingPathComponent("录音", isDirectory: true)
         if FileManager.default.fileExists(atPath: inboxAudio.path) {
@@ -528,9 +528,9 @@ final class AppState: ObservableObject {
             case .duplicate:
                 duplicates += 1
             case .empty:
-                failures.append("「\(url.lastPathComponent)」还是空的或没下完")
+                failures.append(L10n.text("「\(url.lastPathComponent)」还是空的或没下完"))
             case .notAudio:
-                failures.append("「\(url.lastPathComponent)」不是录音")
+                failures.append(L10n.text("「\(url.lastPathComponent)」不是录音"))
             case .failed(let message):
                 failures.append("「\(url.lastPathComponent)」\(message)")
             }
@@ -542,11 +542,11 @@ final class AppState: ObservableObject {
             selected = .lectures
         }
         if imported.count == 1 {
-            statusMessage = "已导入录音 \(imported[0].title)"
+            statusMessage = L10n.text("已导入录音 \(imported[0].title)")
         } else if imported.count > 1 {
-            statusMessage = "已导入 \(imported.count) 条录音"
+            statusMessage = L10n.text("已导入 \(imported.count) 条录音")
         } else if duplicates > 0, failures.isEmpty {
-            statusMessage = "这些录音已经在列表里。"
+            statusMessage = L10n.text("这些录音已经在列表里。")
         } else if let first = failures.first {
             statusMessage = first
         }
@@ -624,33 +624,33 @@ final class AppState: ObservableObject {
 
     private func confirmRecordingAuthorization() -> Bool {
         let alert = NSAlert()
-        alert.messageText = "确认可以录这一段吗？"
-        alert.informativeText = """
+        alert.messageText = L10n.text("确认可以录这一段吗？")
+        alert.informativeText = L10n.text("""
         每一次开始录音都会重新询问，只对这一段有效。
         如为课堂录音，请先取得授课教师书面许可，或确认适用的便利安排允许录这堂课；其他场景也请先取得所需许可。
         录音会保存其他人的声音。请顾及在场其他人的隐私，不要录他们不愿被记录的内容。
         取消不会申请麦克风权限，也不会打开麦克风。
-        """
+        """)
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "取消")
-        alert.addButton(withTitle: "已获得授权，开始录音")
+        alert.addButton(withTitle: L10n.text("取消"))
+        alert.addButton(withTitle: L10n.text("已获得授权，开始录音"))
         return alert.runModal() == .alertSecondButtonReturn
     }
 
     func startRecording() async {
         if recorder.isRecording { return }
         if speech.isTranscribing {
-            statusMessage = "正在转写，请先停止再录音。"
+            statusMessage = L10n.text("正在转写，请先停止再录音。")
             return
         }
         guard confirmRecordingAuthorization() else {
             recorder.unprime()
-            statusMessage = "已取消。没有申请麦克风，也没有开始录音。"
+            statusMessage = L10n.text("已取消。没有申请麦克风，也没有开始录音。")
             return
         }
         guard await recorder.requestPermission() else {
             recorder.unprime()
-            statusMessage = "请在系统设置里允许麦克风。"
+            statusMessage = L10n.text("请在系统设置里允许麦克风。")
             return
         }
         do {
@@ -685,9 +685,9 @@ final class AppState: ObservableObject {
         let frames = recorder.framesWritten
         let warning: String
         if frames == 0 {
-            warning = "文件未写入音频数据，已保留供检查。"
+            warning = L10n.text("文件未写入音频数据，已保留供检查。")
         } else if recorder.capturedPeak < 0.0008 {
-            warning = "录音电平很低，请检查麦克风；原件已保留。"
+            warning = L10n.text("录音电平很低，请检查麦克风；原件已保留。")
         } else {
             warning = ""
         }
@@ -704,7 +704,7 @@ final class AppState: ObservableObject {
         focusLectureID = item.id
         selectedLectureID = item.id
         selected = .lectures
-        statusMessage = item.calendarEventId.isEmpty ? "已保存录音（\(Self.clock(duration))）" : "已保存并归到「\(item.title)」"
+        statusMessage = item.calendarEventId.isEmpty ? L10n.text("已保存录音（\(Self.clock(duration))）") : L10n.text("已保存并归到「\(item.title)」")
         if !warning.isEmpty { statusMessage += " " + warning }
     }
 
@@ -725,10 +725,10 @@ final class AppState: ObservableObject {
         pausePromptUp = true
         let written = Self.clock(recorder.capturedSeconds)
         let alert = NSAlert()
-        alert.messageText = "录音写入已停止"
-        alert.informativeText = "已写入 \(written)。要保存已经录到的部分吗？"
-        alert.addButton(withTitle: "继续等待恢复")
-        alert.addButton(withTitle: "停止并保存")
+        alert.messageText = L10n.text("录音写入已停止")
+        alert.informativeText = L10n.text("已写入 \(written)。要保存已经录到的部分吗？")
+        alert.addButton(withTitle: L10n.text("继续等待恢复"))
+        alert.addButton(withTitle: L10n.text("停止并保存"))
         alert.alertStyle = .warning
         let reply = alert.runModal()
         pausePromptUp = false
@@ -773,7 +773,7 @@ final class AppState: ObservableObject {
         guard recorder.isRecording else { return }
         resumeRecordingAfterWake = true
         stopRecordingAndSave()
-        statusMessage = "合盖前已保存录音"
+        statusMessage = L10n.text("合盖前已保存录音")
     }
 
     private func handleDidWake() {
@@ -790,10 +790,10 @@ final class AppState: ObservableObject {
         wakeResumePromptUp = true
         NSApp.activate(ignoringOtherApps: true)
         let alert = NSAlert()
-        alert.messageText = "电脑刚醒来"
-        alert.informativeText = "合盖前的录音已经保存。要继续录下一段吗？"
-        alert.addButton(withTitle: "继续录音")
-        alert.addButton(withTitle: "不用了")
+        alert.messageText = L10n.text("电脑刚醒来")
+        alert.informativeText = L10n.text("合盖前的录音已经保存。要继续录下一段吗？")
+        alert.addButton(withTitle: L10n.text("继续录音"))
+        alert.addButton(withTitle: L10n.text("不用了"))
         let reply = alert.runModal()
         wakeResumePromptUp = false
         if reply == .alertFirstButtonReturn {
@@ -803,18 +803,18 @@ final class AppState: ObservableObject {
 
     func transcribe(_ lecture: Lecture) async {
         guard !recorder.isRecording else {
-            statusMessage = "请先停止录音再转写。"
+            statusMessage = L10n.text("请先停止录音再转写。")
             return
         }
         let current = lectures.first(where: { $0.id == lecture.id }) ?? lecture
         guard let url = current.fileURL else { return }
         if AudioFileIO.looksEmpty(url) {
-            statusMessage = "这条录音文件是空的，没法转写。请重新录这一段。"
+            statusMessage = L10n.text("这条录音文件是空的，没法转写。请重新录这一段。")
             return
         }
         busy = true
         transcribingLectureID = current.id
-        statusMessage = "转写中…"
+        statusMessage = L10n.text("转写中…")
         defer {
             busy = false
             transcribingLectureID = nil
@@ -839,7 +839,7 @@ final class AppState: ObservableObject {
                 try store.upsert(copy)
                 reload()
             }
-            statusMessage = "转写完成"
+            statusMessage = L10n.text("转写完成")
         } catch {
             statusMessage = AudioFileIO.message(for: error)
         }
@@ -893,37 +893,37 @@ final class AppState: ObservableObject {
     func cancelTranscription() {
         guard speech.isTranscribing else { return }
         speech.cancel()
-        statusMessage = "正在停止转写…"
+        statusMessage = L10n.text("正在停止转写…")
     }
 
     private func confirmExport(count: Int, includesTranscript: Bool) -> Bool {
         let alert = NSAlert()
-        alert.messageText = "导出前请再确认一次"
-        alert.informativeText = """
+        alert.messageText = L10n.text("导出前请再确认一次")
+        alert.informativeText = L10n.text("""
         这次只会保存本机文件，不会自动发给别人。请确认你有权制作这些文字副本。
-        将写出 \(count) 个 Markdown 文件\(includesTranscript ? "，里面包含转写文本" : "")。不会附带原始音频。
+        将写出 \(count) 个 Markdown 文件\(includesTranscript ? L10n.text("，里面包含转写文本") : "")。不会附带原始音频。
         如果之后对外分享，请另外确认传播许可。
-        """
+        """)
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "取消")
-        alert.addButton(withTitle: "继续导出")
+        alert.addButton(withTitle: L10n.text("取消"))
+        alert.addButton(withTitle: L10n.text("继续导出"))
         return alert.runModal() == .alertSecondButtonReturn
     }
 
     func exportLecture(_ item: Lecture) {
         guard confirmExport(count: 1, includesTranscript: item.hasTranscript) else {
-            statusMessage = "已取消导出。录音授权不等于可以分发。"
+            statusMessage = L10n.text("已取消导出。录音授权不等于可以分发。")
             return
         }
         let panel = NSSavePanel()
         panel.allowedContentTypes = [UTType(filenameExtension: "md") ?? .plainText]
         panel.nameFieldStringValue = "\(sanitizedFileName(item.title)).md"
         panel.canCreateDirectories = true
-        panel.title = "导出课堂笔记"
+        panel.title = L10n.text("导出课堂笔记")
         guard panel.runModal() == .OK, let dest = panel.url else { return }
         do {
             try writeMarkdown(item, to: dest)
-            statusMessage = "已导出 \(dest.lastPathComponent)。未附带原始音频。"
+            statusMessage = L10n.text("已导出 \(dest.lastPathComponent)。未附带原始音频。")
         } catch {
             statusMessage = error.localizedDescription
         }
@@ -931,11 +931,11 @@ final class AppState: ObservableObject {
 
     func exportLectures(_ items: [Lecture]) {
         guard !items.isEmpty else {
-            statusMessage = "没有可导出的录音。先在搜索框里按标签筛选。"
+            statusMessage = L10n.text("没有可导出的录音。先在搜索框里按标签筛选。")
             return
         }
         guard confirmExport(count: items.count, includesTranscript: items.contains { $0.hasTranscript }) else {
-            statusMessage = "已取消导出。录音授权不等于可以分发。"
+            statusMessage = L10n.text("已取消导出。录音授权不等于可以分发。")
             return
         }
         let panel = NSOpenPanel()
@@ -943,8 +943,8 @@ final class AppState: ObservableObject {
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
-        panel.prompt = "导出到此文件夹"
-        panel.message = "将导出当前列表中的 \(items.count) 条笔记（Markdown）。不会附带原始音频。"
+        panel.prompt = L10n.text("导出到此文件夹")
+        panel.message = L10n.text("将导出当前列表中的 \(items.count) 条笔记（Markdown）。不会附带原始音频。")
         guard panel.runModal() == .OK, let folder = panel.url else { return }
         var count = 0
         for item in items {
@@ -957,28 +957,28 @@ final class AppState: ObservableObject {
                 return
             }
         }
-        statusMessage = "已导出 \(count) 条到 \(folder.lastPathComponent)。未附带原始音频。"
+        statusMessage = L10n.text("已导出 \(count) 条到 \(folder.lastPathComponent)。未附带原始音频。")
     }
 
     private func writeMarkdown(_ item: Lecture, to url: URL) throws {
         var lines: [String] = [
             "# \(item.title)",
             "",
-            "科目：\(item.subject)",
-            "时长：\(Self.clock(item.duration))"
+            L10n.text("科目：\(item.subject)"),
+            L10n.text("时长：\(Self.clock(item.duration))")
         ]
         if !item.tags.isEmpty {
-            lines.append("标签：\(item.tags)")
+            lines.append(L10n.text("标签：\(item.tags)"))
         }
         lines.append("")
         if item.hasSummary {
-            lines.append("## 要点")
+            lines.append(L10n.text("## 要点"))
             lines.append("")
             lines.append(item.summary)
             lines.append("")
         }
         if item.hasTranscript {
-            lines.append("## 转写")
+            lines.append(L10n.text("## 转写"))
             lines.append("")
             lines.append(item.transcript)
             lines.append("")
@@ -991,7 +991,7 @@ final class AppState: ObservableObject {
         let cleaned = title.replacingOccurrences(of: "/", with: "-")
             .replacingOccurrences(of: ":", with: "-")
             .trimmingCharacters(in: .whitespacesAndNewlines)
-        return cleaned.isEmpty ? "录音" : String(cleaned.prefix(80))
+        return cleaned.isEmpty ? L10n.text("录音") : String(cleaned.prefix(80))
     }
 
     private func uniqueName(_ name: String, in folder: URL) -> String {
@@ -1029,14 +1029,14 @@ final class AppState: ObservableObject {
     func suggestOnDeviceTags(_ item: Lecture) async {
         guard OnDeviceLectureTags.isAvailable else { return }
         guard item.hasTranscript else {
-            statusMessage = "请先转写录音。"
+            statusMessage = L10n.text("请先转写录音。")
             return
         }
         busy = true
-        statusMessage = "正在生成本机标签…"
+        statusMessage = L10n.text("正在生成本机标签…")
         defer { busy = false }
         guard let tags = await OnDeviceLectureTags.suggest(from: item.transcript) else {
-            statusMessage = "本机标签不可用，仍可用提炼要点生成标签。"
+            statusMessage = L10n.text("本机标签不可用，仍可用提炼要点生成标签。")
             return
         }
         var copy = lectures.first(where: { $0.id == item.id }) ?? item
@@ -1044,7 +1044,7 @@ final class AppState: ObservableObject {
         do {
             try store.upsert(copy)
             reload()
-            statusMessage = "已写入本机标签"
+            statusMessage = L10n.text("已写入本机标签")
         } catch {
             statusMessage = error.localizedDescription
         }
@@ -1084,24 +1084,24 @@ final class AppState: ObservableObject {
         apply: (String) throws -> Bool
     ) async {
         guard DocumentTextRecognizer.shouldFillEmptyNotes(existing) else {
-            statusMessage = "已有备注，未覆盖"
+            statusMessage = L10n.text("已有备注，未覆盖")
             return
         }
         guard !path.isEmpty else {
-            statusMessage = "没有可识别的文件"
+            statusMessage = L10n.text("没有可识别的文件")
             return
         }
         let url = URL(fileURLWithPath: path)
         busy = true
-        statusMessage = "正在识别文字…"
+        statusMessage = L10n.text("正在识别文字…")
         defer { busy = false }
         do {
             let text = try await DocumentTextRecognizer.recognize(url: url)
             if try apply(text) {
                 reload()
-                statusMessage = "已写入识别文字"
+                statusMessage = L10n.text("已写入识别文字")
             } else {
-                statusMessage = "已有备注，未覆盖"
+                statusMessage = L10n.text("已有备注，未覆盖")
             }
         } catch {
             statusMessage = error.localizedDescription
@@ -1117,8 +1117,8 @@ final class AppState: ObservableObject {
             return false
         }
         let alert = NSAlert()
-        alert.messageText = "确认把这些内容发给模型吗？"
-        alert.informativeText = """
+        alert.messageText = L10n.text("确认把这些内容发给模型吗？")
+        alert.informativeText = L10n.text("""
         发送内容：\(contents)
 
         接收地址：\(disclosure.destination)
@@ -1127,12 +1127,12 @@ final class AppState: ObservableObject {
 
         请确认你有权将这些材料交给此服务处理。本机网关也可能继续转发内容。
         只有点「发送」才会发出请求。
-        """
+        """)
         alert.alertStyle = .informational
-        alert.addButton(withTitle: "取消")
-        alert.addButton(withTitle: "发送")
+        alert.addButton(withTitle: L10n.text("取消"))
+        alert.addButton(withTitle: L10n.text("发送"))
         if alert.runModal() != .alertSecondButtonReturn {
-            statusMessage = "已取消，没有发送。"
+            statusMessage = L10n.text("已取消，没有发送。")
             return false
         }
         return true
@@ -1140,16 +1140,16 @@ final class AppState: ObservableObject {
 
     func summarizeMistake(_ item: Mistake) async {
         let messages = LLMPrompts.summarizeMistake(item)
-        guard confirmModelSend(messages: messages, contents: "科目、完整题目、你的错误答案及正确答案。") else { return }
+        guard confirmModelSend(messages: messages, contents: L10n.text("科目、完整题目、你的错误答案及正确答案。")) else { return }
         busy = true
-        statusMessage = "正在请求模型…"
+        statusMessage = L10n.text("正在请求模型…")
         defer { busy = false }
         do {
             var copy = item
             copy.analysis = try await llm.complete(settings: settings, messages: messages)
             try store.upsert(copy)
             reload()
-            statusMessage = "错题分析已写入"
+            statusMessage = L10n.text("错题分析已写入")
         } catch {
             statusMessage = error.localizedDescription
         }
@@ -1157,7 +1157,7 @@ final class AppState: ObservableObject {
 
     func summarizeLecture(_ item: Lecture) async {
         guard item.hasTranscript else {
-            statusMessage = "请先转写录音。"
+            statusMessage = L10n.text("请先转写录音。")
             return
         }
         let messages = LLMPrompts.summarizeLecture(
@@ -1167,9 +1167,9 @@ final class AppState: ObservableObject {
             durationText: Self.clock(item.duration),
             transcript: item.transcript
         )
-        guard confirmModelSend(messages: messages, contents: "完整转写正文、课名、科目、录制时间及时长。") else { return }
+        guard confirmModelSend(messages: messages, contents: L10n.text("完整转写正文、课名、科目、录制时间及时长。")) else { return }
         busy = true
-        statusMessage = "正在请求模型…"
+        statusMessage = L10n.text("正在请求模型…")
         defer { busy = false }
         do {
             var copy = item
@@ -1179,7 +1179,7 @@ final class AppState: ObservableObject {
             copy.tags = LectureTags.merge(split.tags, LectureTags.extractFromMarkdown(split.summary))
             try store.upsert(copy)
             reload()
-            statusMessage = "课堂要点已写入。录音和转写仍保留在本机。"
+            statusMessage = L10n.text("课堂要点已写入。录音和转写仍保留在本机。")
         } catch {
             statusMessage = error.localizedDescription
         }
@@ -1204,7 +1204,7 @@ final class AppState: ObservableObject {
             }
         }
         reload()
-        statusMessage = count == 0 ? "日历里没有和录音时间重叠的课。" : "已按课表归类 \(count) 条录音"
+        statusMessage = count == 0 ? L10n.text("日历里没有和录音时间重叠的课。") : L10n.text("已按课表归类 \(count) 条录音")
     }
 
     func requestCalendarAccess() async {

@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Lexicon",
-    defaultLocalization: "zh-Hans",
+    defaultLocalization: "en",
     platforms: [
         // 15 起才有 ToolbarContent.hidden(_:)，换页时靠它保持工具栏项不增删（否则顶栏会闪）。
         // swift-tools 5.9 的枚举只到 .v14，用字符串写法。
@@ -21,6 +21,7 @@ let package = Package(
         .target(
             name: "LexiconCore",
             path: "Sources/LexiconCore",
+            resources: [.process("Resources")],
             linkerSettings: [
                 .linkedLibrary("sqlite3")
             ]
@@ -77,6 +78,7 @@ let package = Package(
             ],
             path: "App",
             exclude: ["Info.plist", "Lexicon.entitlements", "AppIcon.icns", "tex-svg.js"],
+            resources: [.process("Resources")],
             linkerSettings: [
                 .linkedFramework("PDFKit"),
                 .linkedFramework("AppKit"),
