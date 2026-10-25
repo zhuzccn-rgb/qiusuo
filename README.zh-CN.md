@@ -8,7 +8,7 @@
   <img alt="平台：macOS 15+" src="https://img.shields.io/badge/macOS-15%2B-303b54?style=flat-square" />
   <img alt="原生 Swift" src="https://img.shields.io/badge/Swift-native-786a9f?style=flat-square" />
   <a href="LICENSE"><img alt="MIT 许可证" src="https://img.shields.io/badge/license-MIT-6d8f83?style=flat-square" /></a>
-  <img alt="早期源码版本" src="https://img.shields.io/badge/status-early%20source%20release-b19676?style=flat-square" />
+  <a href="https://github.com/zhuzccn-rgb/qiusuo/releases/tag/v0.1.0-alpha.1"><img alt="Alpha 预览版" src="https://img.shields.io/badge/status-alpha-b19676?style=flat-square" /></a>
 </p>
 
 ## 课听完了，学习才刚开始
@@ -47,6 +47,12 @@ M4 / 16 GiB Mac，macOS 27.0.1，Release 构建，2026-10-24。每个场景三�
 
 ![Askfor 学习笔记](docs/assets/app-preview.png)
 
+## 下载
+
+[下载 Apple Silicon Alpha 预览版](https://github.com/zhuzccn-rgb/qiusuo/releases/tag/v0.1.0-alpha.1)。解压后将 **Askfor.app** 移到「应用程序」，需要 **macOS 15 或更新版本**。
+
+预览版使用临时签名，未经过 Apple Developer ID 签名和公证。如果首次打开被 macOS 拦截，请按 [Apple 的说明](https://support.apple.com/zh-cn/102445)，进入「系统设置 → 隐私与安全 → 仍要打开」。
+
 ## 编译运行
 
 - **Apple Silicon Mac，macOS 15 或更新版本**。
@@ -60,7 +66,9 @@ cd qiusuo
 open dist/求索.app
 ```
 
-也可以用 Xcode 打开 `Lexicon.xcodeproj`，选择 **求索** scheme。
+也可以双击源码目录中的 **Build Askfor.command**：脚本会检查 Xcode 和 SDK、编译应用，失败时弹窗显示错误。首次使用需先安装完整 Xcode 并完成初始化。
+
+或用 Xcode 打开 `Lexicon.xcodeproj`，选择 **求索** scheme。
 
 ## 第一次使用
 

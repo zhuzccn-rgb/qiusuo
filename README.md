@@ -8,7 +8,7 @@
   <img alt="Platform: macOS 15+" src="https://img.shields.io/badge/macOS-15%2B-303b54?style=flat-square" />
   <img alt="Language: Swift" src="https://img.shields.io/badge/Swift-native-786a9f?style=flat-square" />
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-6d8f83?style=flat-square" /></a>
-  <img alt="Status: early source release" src="https://img.shields.io/badge/status-early%20source%20release-b19676?style=flat-square" />
+  <a href="https://github.com/zhuzccn-rgb/qiusuo/releases/tag/v0.1.0-alpha.1"><img alt="Status: Alpha" src="https://img.shields.io/badge/status-alpha-b19676?style=flat-square" /></a>
 </p>
 
 ## Make room for the next aha moment
@@ -47,6 +47,12 @@ M4 / 16 GiB Mac, macOS 27.0.1, Release build, 2026-10-24. Medians of three runs 
 
 ![Askfor study notes](docs/assets/app-preview.png)
 
+## Download
+
+[Download the Alpha for Apple Silicon](https://github.com/zhuzccn-rgb/qiusuo/releases/tag/v0.1.0-alpha.1). Unzip and move **Askfor.app** to Applications. Requires **macOS 15 or later**.
+
+This preview is ad-hoc signed, without an Apple Developer ID signature or notarization. If macOS blocks the first launch, follow [Apple's instructions](https://support.apple.com/102445) under **System Settings → Privacy & Security → Open Anyway**.
+
 ## Build and run
 
 - Apple Silicon Mac with **macOS 15 or later**.
@@ -59,6 +65,8 @@ cd qiusuo
 ./scripts/make-app.sh
 open dist/求索.app
 ```
+
+For a double-click build, open **Build Askfor.command** in the source folder. It checks Xcode and the SDK, builds the app, and reports failures in a dialog. Install full Xcode and complete its first-launch setup beforehand.
 
 You can also open `Lexicon.xcodeproj` in Xcode and select the **求索** scheme.
 
